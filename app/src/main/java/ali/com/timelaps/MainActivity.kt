@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         resetGame()
         mediaPlayer = MediaPlayer.create(this, R.raw.mmm)
         tapMeButton.isSoundEffectsEnabled=false
-        tapMeButton.setOnClickListener { view ->
+        tapMeButton.setOnClickListener {
 
             mediaPlayer.start()
             incrementScore()
