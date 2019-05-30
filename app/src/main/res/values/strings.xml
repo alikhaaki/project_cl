@@ -1,7 +1,15 @@
 <resources>
-	<string name="app_name">Time laps</string>
-	<string name="your_score">Your Score is : %s</string>
-	<string name="time_left">Time Left: %s</string>
+	<string name="app_name">چند بار کلیک میکنی</string>
+	<string name="your_score">
+	%s
+		:
+		امتیاز شما
+	</string>
+	<string name="time_left">
+		%s
+		:
+		زمان باقی مانده
+	</string>
 	<string name="game_over_message">Times up! Your score was: %s</string>
 	<string name="tap_me">Tap Me</string>
 </resources>

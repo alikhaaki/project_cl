@@ -5,5 +5,14 @@
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:textViewStyle">@style/androidTextStyle</item>
+		<item name="android:switchTextAppearance">@style/androidTs</item>
+	</style>
+	
+	<style name="androidTextStyle" parent="android:Widget.TextView">
+		<item name="android:fontFamily">@font/iransans</item>
+	</style>
+	<style name="androidTs" parent="TextAppearance.AppCompat.Widget.Switch" >
+		<item name="android:fontFamily">@font/iransans</item>
 	</style>
 </resources>

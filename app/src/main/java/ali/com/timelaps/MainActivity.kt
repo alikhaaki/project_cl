@@ -4,27 +4,28 @@ import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.v7.widget.SwitchCompat
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
-
-    internal lateinit var tapMeButton: Button
-    internal lateinit var gameScoreTextView: TextView
+    private lateinit var tapMeButton: Button
+    private lateinit var gameScoreTextView: TextView
     internal lateinit var timeLeftTextView: TextView
-    internal var score = 0
-    internal var gameStarted = false
-    internal lateinit var countDownTimer: CountDownTimer
+    private var score = 0
+    private var gameStarted = false
+    private lateinit var countDownTimer: CountDownTimer
     internal val initialCountDown: Long = 60000
     internal val countDownInterval: Long = 1000
-    internal lateinit var mediaPlayer: MediaPlayer
-    private lateinit var textYourScore:TextView
-
+    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var switch: SwitchCompat
+    private lateinit var textYourScore: TextView
     internal var timeLeftOnTimer: Long = 60000
 
     companion object {
@@ -36,11 +37,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
         timeLeftTextView = findViewById(R.id.time_left_text_view)
-        textYourScore=findViewById(R.id.text_score_tozih)
+        textYourScore = findViewById(R.id.text_score_tozih)
+        switch = findViewById(R.id.switchh)
+
+        switch.textOn = "On"
+        switch.textOff = "Off"
 
         if (savedInstanceState != null) {
             score = savedInstanceState.getInt(SCORE_KEY)
@@ -51,13 +55,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         mediaPlayer = MediaPlayer.create(this, R.raw.mmm)
-        tapMeButton.isSoundEffectsEnabled=false
-        tapMeButton.setOnClickListener {
+        tapMeButton.isSoundEffectsEnabled = false
+        tapMeButton.setOnClickListener { view ->
 
 
-            val bounceAnimation=AnimationUtils.loadAnimation(this,R.anim.nnn)
+            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
             view.startAnimation(bounceAnimation)
-            mediaPlayer.start()
+            if (switch.isChecked) {
+                mediaPlayer.start()
+            }
+
             incrementScore()
         }
 
@@ -91,12 +98,12 @@ class MainActivity : AppCompatActivity() {
         outState.putInt(SCORE_KEY, score)
         outState.putLong(TIME_LEFT_KEY, timeLeftOnTimer)
         countDownTimer.cancel()
-     }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
 
-     }
+    }
 
 
     private fun resetGame() {
@@ -105,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         val initialTimeLeft = initialCountDown / 1000
         timeLeftTextView.text = getString(R.string.time_left, initialTimeLeft.toString())
 
-        countDownTimer = object: CountDownTimer(initialCountDown, countDownInterval) {
+        countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
             override fun onTick(millisUntilFinished: Long) {
                 timeLeftOnTimer = millisUntilFinished
                 val timeLeft = millisUntilFinished / 1000
@@ -126,8 +133,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun endGame() {
         Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
-        textYourScore.visibility=View.VISIBLE
-        textYourScore.text=score.toString()
+        textYourScore.visibility = View.VISIBLE
+        textYourScore.text = score.toString()
         resetGame()
     }
 
