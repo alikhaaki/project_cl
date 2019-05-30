@@ -10,6 +10,14 @@
 		:
 		زمان باقی مانده
 	</string>
-	<string name="game_over_message">Times up! Your score was: %s</string>
-	<string name="tap_me">Tap Me</string>
+	<string name="game_over_message">
+		%s
+		:
+		بازی تمام شد امتیاز شما
+	</string>
+	<string name="tap_me">کلیک کن</string>
+	<string name="your_score_tozih">
+		رکورد شما :
+		%s
+	</string>
 </resources>

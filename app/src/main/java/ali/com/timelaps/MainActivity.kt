@@ -1,10 +1,13 @@
 package ali.com.timelaps
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.widget.SwitchCompat
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -56,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.mmm)
         tapMeButton.isSoundEffectsEnabled = false
+
         tapMeButton.setOnClickListener { view ->
 
 
@@ -134,7 +138,7 @@ class MainActivity : AppCompatActivity() {
     private fun endGame() {
         Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
         textYourScore.visibility = View.VISIBLE
-        textYourScore.text = score.toString()
+        textYourScore.text = getString(R.string.your_score_tozih,score.toString())
         resetGame()
     }
 
@@ -142,10 +146,27 @@ class MainActivity : AppCompatActivity() {
         if (!gameStarted) {
             startGame()
         }
-        score = score + 1
+        score += 1
         val newScore = getString(R.string.your_score, score.toString())
         gameScoreTextView.text = newScore
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        super.onOptionsItemSelected(item)
+        if (item != null) {
+            if (item.itemId == R.id.go_to_hard_1_menu) {
+                startActivity(Intent(this,Hard1::class.java))
+             }
+
+        }
+        return true
+    }
 }
