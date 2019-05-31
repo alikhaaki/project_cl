@@ -3,11 +3,14 @@ package ali.com.timelaps;
 import Fragment.FragmentOne;
 import Fragment.FragmentThree;
 import Fragment.FragmentTwo;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import com.github.paolorotolo.appintro.AppIntro;
 
 public class IntroActivity extends AppIntro {
+
 
 
 
@@ -21,6 +24,8 @@ public class IntroActivity extends AppIntro {
 
         showSkipButton(true);
         setProgressButtonEnabled(true);
+
+
 
     }
 }
