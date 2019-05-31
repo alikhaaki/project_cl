@@ -80,8 +80,8 @@ class Harder : AppCompatActivity() {
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
 
 
-            position.x = random.nextInt(dispHH) - 8
-            position.y = random.nextInt(dispWW) - 8
+            position.x = random.nextInt(dispHH) - 32
+            position.y = random.nextInt(dispWW) - 32
 
 
             tapMeButton.setLayoutParams(position)

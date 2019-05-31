@@ -60,6 +60,8 @@ class Hard1 : AppCompatActivity() {
         tapMeButton.setOnClickListener { view ->
 
 
+            textYourScore.visibility=View.INVISIBLE
+
             val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
             view.startAnimation(bounceAnimation)
             if (switch.isChecked) {

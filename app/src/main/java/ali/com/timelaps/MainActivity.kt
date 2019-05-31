@@ -1,5 +1,6 @@
 package ali.com.timelaps
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.media.MediaPlayer
@@ -45,28 +46,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initDialog(){
-        val checkBoxView = View.inflate(this, R.layout.dialog_check, null)
-        val checkBox = checkBoxView.findViewById(R.id.check_box)
-        checkBox.setText("Text to the ")
 
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(" MY_TEXT")
-        builder.setMessage(" MY_TEXT ")
-            .setView(checkBoxView)
-            .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, id ->
-                val uri = Uri.parse("market://details?id=MY_APP_PACKAGE")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(intent)
-            }
-            .setNegativeButton("No") { dialog, id -> dialog.cancel() }.show()
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sp = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        if (!sp.getBoolean("first", false)) {
+            val editor = sp.edit()
+            editor.putBoolean("first", true)
+            editor.apply()
+            val intent = Intent(this, IntroActivity::class.java)
+            startActivity(intent)
+        }
 
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
