@@ -1,26 +1,20 @@
 package ali.com.timelaps
 
-import android.content.DialogInterface
-import android.content.Intent
 import android.media.MediaPlayer
-import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.SwitchCompat
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
+import android.widget.AbsoluteLayout
 import android.widget.Button
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class Hardest : AppCompatActivity() {
+
+
 
     private lateinit var tapMeButton: Button
     private lateinit var gameScoreTextView: TextView
@@ -34,39 +28,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
     internal var timeLeftOnTimer: Long = 60000
+    private val TAG = this@Hardest.javaClass.getSimpleName()
+
 
     companion object {
         private val SCORE_KEY = "SCORE_KEY"
         private val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-    private fun initDialog(){
-        val checkBoxView = View.inflate(this, R.layout.dialog_check, null)
-        val checkBox = checkBoxView.findViewById(R.id.check_box)
-        checkBox.setText("Text to the ")
-
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(" MY_TEXT")
-        builder.setMessage(" MY_TEXT ")
-            .setView(checkBoxView)
-            .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, id ->
-                val uri = Uri.parse("market://details?id=MY_APP_PACKAGE")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(intent)
-            }
-            .setNegativeButton("No") { dialog, id -> dialog.cancel() }.show()
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_hardest)
+
 
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
@@ -74,9 +47,11 @@ class MainActivity : AppCompatActivity() {
         textYourScore = findViewById(R.id.text_score_tozih)
         switch = findViewById(R.id.switchh)
 
-
         switch.textOn = "On"
         switch.textOff = "Off"
+
+        //https://sep.shaparak.ir/payment.aspx
+        //https://sep.shaparak.ir/Payment.aspx
 
         if (savedInstanceState != null) {
             score = savedInstanceState.getInt(SCORE_KEY)
@@ -91,12 +66,26 @@ class MainActivity : AppCompatActivity() {
 
         tapMeButton.setOnClickListener { view ->
 
-
-            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
-            view.startAnimation(bounceAnimation)
-            if (switch.isChecked) {
+            if(switch.isChecked){
                 mediaPlayer.start()
             }
+            val displayMetrics = this.resources.displayMetrics
+
+            val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
+            val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
+
+
+            val random = Random()
+
+            val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
+
+
+            position.x = random.nextInt(dispHH) - 8
+            position.y = random.nextInt(dispWW) - 8
+
+
+            tapMeButton.setLayoutParams(position)
+
 
             incrementScore()
         }
@@ -179,23 +168,6 @@ class MainActivity : AppCompatActivity() {
         val newScore = getString(R.string.your_score, score.toString())
         gameScoreTextView.text = newScore
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        super.onOptionsItemSelected(item)
-        if (item != null) when {
-            item.itemId == R.id.go_to_hard_1_menu -> startActivity(Intent(this, Hard1::class.java))
-       item.itemId == R.id.go_to_hardest_gaem -> startActivity(Intent(this, Hardest::class.java))
-            item.itemId == R.id.go_to_hard_2_menu -> startActivity(Intent(this, Harder::class.java))
-        }
-        return true
     }
 
 

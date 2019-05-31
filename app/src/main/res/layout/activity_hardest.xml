@@ -1,18 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".Hardest">
+	android:orientation="vertical"
+	tools:context=".Harder">
 
-	<Button
-		android:background="@android:color/holo_red_dark"
-		android:layout_x="40dp"
-		android:layout_y="100dp"
-		android:id="@+id/button_hardessttttt"
-		android:layout_width="100dp"
-		android:layout_height="100dp" />
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight=".12">
 	
-</AbsoluteLayout>
+	<android.support.v7.widget.SwitchCompat
+		android:id="@+id/switchh"
+		android:layout_width="150dp"
+		android:layout_height="30dp"
+		android:layout_marginTop="@dimen/margin_standard"
+		android:layout_marginRight="-2dp"
+		android:layout_toLeftOf="@id/text_sedaye_dokme"
+		android:checked="true" />
+	<TextView
+		android:id="@+id/text_sedaye_dokme"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginLeft="@dimen/margin_standard"
+		android:layout_marginTop="@dimen/margin_standard"
+		android:layout_marginRight="@dimen/margin_standard"
+		android:text="صدای دکمه"
+		android:textColor="@android:color/black"
+		android:textSize="18sp" />
+	
+	<TextView
+		android:id="@+id/game_score_text_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/switchh"
+		android:layout_alignParentLeft="true"
+		android:layout_marginLeft="@dimen/margin_standard"
+		android:layout_marginTop="@dimen/margin_standard"
+		android:fontFamily="@font/iransans"
+		android:text="@string/your_score"
+		android:textColor="@android:color/black"
+		android:textDirection="anyRtl"
+		android:textSize="18sp" />
+	
+	<TextView
+		android:id="@+id/time_left_text_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/switchh"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="@dimen/margin_standard"
+		android:layout_marginRight="16dp"
+		android:fontFamily="@font/iransans"
+		android:text="@string/time_left"
+		android:textColor="@android:color/black"
+		android:textSize="18sp" />
+	
+		
+	</RelativeLayout>
+	<AbsoluteLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight=".82">
+	
+		
+	<Button
+		android:id="@+id/tap_me_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="8dp"
+		android:background="@null"
+		android:fontFamily="@font/iransans"
+		 />
+		
+	</AbsoluteLayout>
+	
+	<FrameLayout
+		android:layout_weight=".1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+	
+	<TextView
+		android:id="@+id/text_score_tozih"
+		android:layout_width="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_height="wrap_content"
+		android:fontFamily="@font/iransans"
+		
+		android:text="@string/your_score_tozih"
+		android:textColor="@android:color/black"
+		android:textSize="18sp"
+		android:visibility="gone" />
+  
+	 
+	</FrameLayout>
+</LinearLayout>
