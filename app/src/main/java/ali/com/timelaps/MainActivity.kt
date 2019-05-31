@@ -164,7 +164,10 @@ class MainActivity : AppCompatActivity() {
         if (item != null) {
             if (item.itemId == R.id.go_to_hard_1_menu) {
                 startActivity(Intent(this,Hard1::class.java))
-             }
+             }else if(item.itemId==R.id.go_to_hardest_gaem){
+                startActivity(Intent(this,Hardest::class.java))
+
+            }
 
         }
         return true

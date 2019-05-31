@@ -10,20 +10,23 @@ import kotlin.random.Random
 
 class Harder : AppCompatActivity() {
 
-    private lateinit var button: Button
+    private lateinit var buttonMMMM: Button
     private lateinit var displayMetrics: DisplayMetrics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_harder)
 
+        buttonMMMM=findViewById(R.id.button_harder)
         windowManager.defaultDisplay.getMetrics(displayMetrics)
 
         var widthArea=displayMetrics.widthPixels
         var height=displayMetrics.heightPixels
 
+        val position = buttonMMMM.getLayoutParams() as AbsoluteLayout.LayoutParams
+
         var rr: Random
-        var absouluteLayout:AbsoluteLayout.LayoutParams
+
 
 
     }
