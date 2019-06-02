@@ -9,9 +9,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class Sample extends AppCompatActivity {
 
+
+    private Toast toast;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +43,10 @@ public class Sample extends AppCompatActivity {
                 }).show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        toast.cancel();
+    }
 
 }

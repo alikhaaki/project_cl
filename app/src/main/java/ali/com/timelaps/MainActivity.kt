@@ -1,32 +1,28 @@
 package ali.com.timelaps
 
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.media.MediaPlayer
-import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.preference.PreferenceManager
-import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import com.andrognito.flashbar.Flashbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var tapMeButton: Button
     private lateinit var gameScoreTextView: TextView
     internal lateinit var timeLeftTextView: TextView
+    private val toast: Toast? = null
+
     private var score = 0
     private var gameStarted = false
     private lateinit var countDownTimer: CountDownTimer
@@ -47,16 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         val t = Thread(Runnable {
             //  Initialize SharedPreferences
@@ -96,9 +85,6 @@ class MainActivity : AppCompatActivity() {
         switch = findViewById(R.id.switchh)
 
 
-        switch.textOn = "On"
-        switch.textOff = "Off"
-
         if (savedInstanceState != null) {
             score = savedInstanceState.getInt(SCORE_KEY)
             timeLeftOnTimer = savedInstanceState.getLong(TIME_LEFT_KEY)
@@ -137,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                endGame()
+                    endGame()
             }
         }
 
@@ -156,9 +142,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
+        toast?.cancel()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        toast?.cancel()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        toast?.cancel()
+    }
 
     private fun resetGame() {
         score = 0
@@ -174,6 +169,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                toast?.cancel()
                 endGame()
             }
         }
@@ -186,7 +182,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun endGame() {
+
         Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+        Flashbar.Builder(this).gravity(Flashbar.Gravity.BOTTOM).duration(600)
+            .message(getString(R.string.game_over_message,score.toString())).build()
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
         resetGame()
@@ -213,7 +212,7 @@ class MainActivity : AppCompatActivity() {
         super.onOptionsItemSelected(item)
         if (item != null) when {
             item.itemId == R.id.go_to_hard_1_menu -> startActivity(Intent(this, Hard1::class.java))
-       item.itemId == R.id.go_to_hardest_gaem -> startActivity(Intent(this, Hardest::class.java))
+            item.itemId == R.id.go_to_hardest_gaem -> startActivity(Intent(this, Hardest::class.java))
             item.itemId == R.id.go_to_hard_2_menu -> startActivity(Intent(this, Harder::class.java))
         }
         return true

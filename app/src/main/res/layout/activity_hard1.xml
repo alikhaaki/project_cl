@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -16,31 +15,31 @@
 		android:layout_height="30dp"
 		android:layout_alignParentTop="true"
 		android:layout_marginTop="@dimen/margin_standard"
+		android:layout_marginRight="-110dp"
+		android:layout_toLeftOf="@id/sedaye_dokme"
 		android:checked="true" />
 	
 	<TextView
-		android:text="صدای دکمه"
-		android:layout_alignRight="@id/switchh"
-		android:layout_alignParentTop="true"
-		android:layout_width="wrap_content"
-		android:layout_marginLeft="@dimen/margin_standard"
-		android:layout_marginRight="32dp"
 		android:id="@+id/sedaye_dokme"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginLeft="@dimen/margin_standard"
 		android:layout_marginTop="@dimen/margin_standard"
-		android:textSize="18sp"
+		android:layout_marginRight="@dimen/margin_standard"
+		android:text="صدای دکمه"
 		android:textColor="@android:color/black"
-		android:layout_height="wrap_content" />
+		android:textSize="18sp" />
 	
 	
 	<TextView
-		android:layout_below="@+id/sedaye_dokme"
 		android:id="@+id/text_hard_tozih"
-		android:layout_marginRight="@dimen/margin_standard"
-		android:textColor="@android:color/black"
-		android:textSize="18sp"
-		android:text="سختی لول 1"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
+		style="@style/textViewStyle"
+		android:layout_width="match_parent"
+		android:layout_height="56dp"
+		android:layout_below="@+id/sedaye_dokme"
+		android:text="سطح : متوسط" />
 	
 	<TextView
 		android:id="@+id/game_score_text_view"
@@ -95,11 +94,10 @@
 		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="8dp"
 		android:fontFamily="@font/iransans"
+		android:text="@string/your_score_tozih"
 		android:textColor="@android:color/black"
 		android:textSize="18sp"
-		android:visibility="gone"
-		android:text="@string/your_score_tozih"
-		 />
+		android:visibility="gone" />
   
 	 
 </RelativeLayout>

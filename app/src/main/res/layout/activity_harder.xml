@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:layoutDirection="rtl"
 	android:orientation="vertical"
 	tools:context=".Harder">
 
@@ -18,7 +18,7 @@
 		android:layout_width="150dp"
 		android:layout_height="30dp"
 		android:layout_marginTop="@dimen/margin_standard"
-		android:layout_marginRight="-2dp"
+		android:layout_marginRight="-110dp"
 		android:layout_toLeftOf="@id/text_sedaye_dokme"
 		android:checked="true" />
 	<TextView
@@ -34,11 +34,20 @@
 		android:textColor="@android:color/black"
 		android:textSize="18sp" />
 	
+		
+	<TextView
+		android:id="@+id/text_hard_tozih"
+		style="@style/textViewStyle"
+		android:layout_width="match_parent"
+		android:layout_height="56dp"
+		android:layout_below="@+id/text_sedaye_dokme"
+		android:text="سطح : سخت" />
+	
 	<TextView
 		android:id="@+id/game_score_text_view"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/switchh"
+		android:layout_below="@id/text_hard_tozih"
 		android:layout_alignParentLeft="true"
 		android:layout_marginLeft="@dimen/margin_standard"
 		android:layout_marginTop="@dimen/margin_standard"
@@ -52,7 +61,7 @@
 		android:id="@+id/time_left_text_view"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/switchh"
+		android:layout_below="@id/text_hard_tozih"
 		android:layout_alignParentRight="true"
 		android:layout_marginTop="@dimen/margin_standard"
 		android:layout_marginRight="16dp"
@@ -84,17 +93,17 @@
 	</AbsoluteLayout>
 	
 	<FrameLayout
-		android:layout_weight=".1"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_weight=".1">
 		
 	
 	<TextView
 		android:id="@+id/text_score_tozih"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:fontFamily="@font/iransans"
 		android:layout_gravity="center_horizontal"
+		android:fontFamily="@font/iransans"
 		android:text="@string/your_score_tozih"
 		android:textColor="@android:color/black"
 		android:textSize="18sp"
