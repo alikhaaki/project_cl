@@ -24,4 +24,16 @@
 	</string>
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>
+	
+	<string name="string_intro">
+		
+		
+		با تشکر از شما که این برنامه را انتخاب کردید
+	بازی از سه قسمت تشکیل شده است
+		حالت عادی
+		سخت
+		خیلی سخت
+		به شدت سخت
+		
+	</string>
 </resources>
