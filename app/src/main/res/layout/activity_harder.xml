@@ -11,7 +11,7 @@
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_weight=".12">
+		android:layout_weight=".1">
 	
 	<android.support.v7.widget.SwitchCompat
 		android:id="@+id/switchh"
@@ -75,7 +75,7 @@
 	<AbsoluteLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_weight=".82">
+		android:layout_weight=".9">
 	
 		
 	<Button
@@ -86,7 +86,8 @@
 		android:layout_marginTop="8dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="8dp"
-		android:background="@android:color/holo_orange_dark"
+		
+		android:background="@color/colorPrimary"
 		android:fontFamily="@font/iransans"
 		android:text="@string/tap_me" />
 		
@@ -95,7 +96,7 @@
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_weight=".1">
+		android:layout_weight=".08">
 		
 	
 	<TextView

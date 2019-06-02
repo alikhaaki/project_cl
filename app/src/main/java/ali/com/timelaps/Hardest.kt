@@ -15,7 +15,6 @@ import java.util.*
 class Hardest : AppCompatActivity() {
 
 
-
     private lateinit var tapMeButton: Button
     private lateinit var gameScoreTextView: TextView
     internal lateinit var timeLeftTextView: TextView
@@ -36,6 +35,15 @@ class Hardest : AppCompatActivity() {
         private val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
+    private fun randInt(min: Int, max: Int): Int {
+
+
+        val rand: Random? = null
+
+
+        return rand!!.nextInt(max - min + 1) + min
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardest)
@@ -47,11 +55,6 @@ class Hardest : AppCompatActivity() {
         textYourScore = findViewById(R.id.text_score_tozih)
         switch = findViewById(R.id.switchh)
 
-        switch.textOn = "On"
-        switch.textOff = "Off"
-
-        //https://sep.shaparak.ir/payment.aspx
-        //https://sep.shaparak.ir/Payment.aspx
 
         if (savedInstanceState != null) {
             score = savedInstanceState.getInt(SCORE_KEY)
@@ -66,7 +69,7 @@ class Hardest : AppCompatActivity() {
 
         tapMeButton.setOnClickListener { view ->
 
-            if(switch.isChecked){
+            if (switch.isChecked) {
                 mediaPlayer.start()
             }
             val displayMetrics = this.resources.displayMetrics
@@ -75,13 +78,14 @@ class Hardest : AppCompatActivity() {
             val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
 
 
-            val random = Random()
+//            val random = Random()
 
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
 
 
-            position.x = random.nextInt(dispHH) - 32
-            position.y = random.nextInt(dispWW) - 32
+
+            position.x = randInt(0, dispHH-58)
+            position.y = randInt(0, dispWW-58)
 
 
             tapMeButton.layoutParams = position

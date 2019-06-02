@@ -11,10 +11,24 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Sample extends AppCompatActivity {
 
 
     private Toast toast;
+    private static int randInt(int min, int max) {
+
+
+        Random rand = null;
+
+
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +36,8 @@ public class Sample extends AppCompatActivity {
 
         View checkBoxView = View.inflate(this, R.layout.dialog_check, null);
         CheckBox checkBox =  checkBoxView.findViewById(R.id.check_box);
-
+        Random ran = new Random();
+        int x = ran.nextInt(6) + 5;
         checkBox.setText("Text to the right of the check box.");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

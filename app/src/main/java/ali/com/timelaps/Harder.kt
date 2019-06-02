@@ -14,9 +14,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import java.util.*
+import kotlin.math.log
 
 class Harder : AppCompatActivity() {
-
 
 
     private lateinit var tapMeButton: Button
@@ -31,13 +31,24 @@ class Harder : AppCompatActivity() {
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
     internal var timeLeftOnTimer: Long = 60000
-    private val TAG = this@Harder.javaClass.getSimpleName()
+    private val TAG = this@Harder.javaClass.simpleName
 
 
     companion object {
         private val SCORE_KEY = "SCORE_KEY"
         private val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
+
+    private fun randInt(min: Int, max: Int): Int {
+
+
+        val rand: Random? = null
+
+
+        return rand!!.nextInt(max - min + 1) + min
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,28 +77,41 @@ class Harder : AppCompatActivity() {
 
         tapMeButton.setOnClickListener { view ->
 
-            if(switch.isChecked){
+            textYourScore.visibility=View.GONE
+
+            if (switch.isChecked) {
                 mediaPlayer.start()
             }
+
             val displayMetrics = this.resources.displayMetrics
 
             val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
             val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
 
+            val ran = Random()
+            val x = ran.nextInt(dispHH) + 1
+            val y = ran.nextInt(dispWW) + 1
 
-            val random = Random()
+            val xxxxx = 10+ran.nextInt((dispHH-58)-10+1)
+            val yyyyy = 10+ran.nextInt((dispWW-58)-10+1)
 
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
 
 
-            position.x = random.nextInt(dispHH) - 32
-            position.y = random.nextInt(dispWW) - 32
+            Log.i("my_tag height ", "height is = $dispHH")
+            Log.i("my_tag width  ", "width  is = $dispWW")
+
+            Log.i("my_tag xxxx  ", "xxxx  is = $x")
+            Log.i("my_tag yyy  ", "yyyy  is = $y")
+
+            position.x = xxxxx
+            position.y = yyyyy
 
 
-            tapMeButton.setLayoutParams(position)
+            tapMeButton.layoutParams = position
 
 
-             incrementScore()
+            incrementScore()
         }
 
     }
@@ -120,11 +144,6 @@ class Harder : AppCompatActivity() {
         outState.putInt(SCORE_KEY, score)
         outState.putLong(TIME_LEFT_KEY, timeLeftOnTimer)
         countDownTimer.cancel()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
     }
 
 

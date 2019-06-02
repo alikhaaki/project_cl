@@ -10,8 +10,9 @@
 
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight=".12">
+		android:layout_height="0dp"
+		android:layout_weight="2"
+		 >
 	
 	<android.support.v7.widget.SwitchCompat
 		android:id="@+id/switchh"
@@ -71,9 +72,9 @@
 		
 	</RelativeLayout>
 	<AbsoluteLayout
+		android:layout_weight="6"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight=".82">
+		android:layout_height="0dp">
 	
 		
 	<Button
@@ -89,9 +90,10 @@
 	</AbsoluteLayout>
 	
 	<FrameLayout
+		android:layout_weight="1"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight=".1">
+		android:layout_height="0dp"
+		 >
 		
 	
 	<TextView
