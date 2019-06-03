@@ -72,20 +72,20 @@ class Hardest : AppCompatActivity() {
             if (switch.isChecked) {
                 mediaPlayer.start()
             }
+
             val displayMetrics = this.resources.displayMetrics
 
             val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
             val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
 
+            val ran = Random()
+            val x = ran.nextInt(dispHH) + 1
+            val y = ran.nextInt(dispWW) + 1
 
-//            val random = Random()
+            val xxxxx = 10+ran.nextInt((dispHH-58)-10+1)
+            val yyyyy = 10+ran.nextInt((dispWW-58)-10+1)
 
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
-
-
-
-            position.x = randInt(0, dispHH-58)
-            position.y = randInt(0, dispWW-58)
 
 
             tapMeButton.layoutParams = position
