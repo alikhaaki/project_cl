@@ -15,6 +15,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.andrognito.flashbar.Flashbar
+import com.google.firebase.analytics.FirebaseAnalytics
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,9 +45,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private var mFirebaseAnalytics: FirebaseAnalytics? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name")
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
+        mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
 
         val t = Thread(Runnable {
             //  Initialize SharedPreferences
@@ -123,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                    endGame()
+                endGame()
             }
         }
 
@@ -185,7 +196,7 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
         Flashbar.Builder(this).gravity(Flashbar.Gravity.BOTTOM).duration(600)
-            .message(getString(R.string.game_over_message,score.toString())).build()
+            .message(getString(R.string.game_over_message, score.toString())).build()
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
         resetGame()

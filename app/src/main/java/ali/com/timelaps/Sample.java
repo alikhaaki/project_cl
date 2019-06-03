@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -34,6 +35,7 @@ public class Sample extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_check);
 
+          FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         View checkBoxView = View.inflate(this, R.layout.dialog_check, null);
         CheckBox checkBox =  checkBoxView.findViewById(R.id.check_box);
         Random ran = new Random();
