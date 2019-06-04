@@ -6,8 +6,14 @@
 	android:background="@color/grey_100"
 	tools:context="Fragment.FragmentOne">
  
-	 <TextView
-		 android:text="@string/string_intro"
-		 android:layout_width="wrap_content"
-		 android:layout_height="wrap_content" />
+	<TextView
+		android:textSize="18sp"
+		android:textColor="@color/black"
+		android:layout_centerInParent="true"
+		android:padding="8dp"
+		android:layout_marginRight="@dimen/margin_standard"
+		android:layout_marginLeft="@dimen/margin_standard"
+ 		android:layout_width="wrap_content"
+		android:text="@string/string_intro"
+		android:layout_height="wrap_content" />
 </RelativeLayout>

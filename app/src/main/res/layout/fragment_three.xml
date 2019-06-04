@@ -2,13 +2,19 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
+	android:background="@color/grey_100"
 	android:layout_height="match_parent"
 	tools:context="Fragment.FragmentThree">
 
-    <!-- TODO: Update blank fragment layout -->
+ 
 	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:text="@string/hello_blank_fragment" />
-
+		android:textSize="18sp"
+		android:textColor="@color/black"
+		android:layout_gravity="center_vertical|center_horizontal"
+		android:layout_marginRight="@dimen/margin_standard"
+		android:layout_marginLeft="@dimen/margin_standard"
+		android:padding="@dimen/margin_standard"
+		android:text="@string/intro_3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
 </FrameLayout>

@@ -26,6 +26,7 @@ public class IntroActivity extends AppIntro {
         showSkipButton(true);
         setProgressButtonEnabled(true);
 
+//        setSkipTextTypeface(R.font.iransans);
 
         setColorSkipButton(ContextCompat.getColor(this, R.color.black));
         setSkipText("رد شدن");
