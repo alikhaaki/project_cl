@@ -6,9 +6,18 @@
 	android:background="@color/grey_100"
 	tools:context="Fragment.FragmentOne">
  
+	<ImageView
+		android:id="@+id/image_intro_one"
+		android:layout_width="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_above="@id/text_intro_one"
+		android:src="@drawable/intro_menu"
+		android:layout_height="wrap_content" />
+	
 	<TextView
 		android:textSize="18sp"
 		android:textColor="@color/black"
+		android:id="@+id/text_intro_one"
 		android:layout_centerInParent="true"
 		android:padding="8dp"
 		android:layout_marginRight="@dimen/margin_standard"

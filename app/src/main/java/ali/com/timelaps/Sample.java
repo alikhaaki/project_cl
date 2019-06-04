@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Sample extends AppCompatActivity {
 
 
+    private Toolbar toolbar;
     private Toast toast;
     private static int randInt(int min, int max) {
 
@@ -34,6 +36,10 @@ public class Sample extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_check);
+
+        toolbar=findViewById(R.id.toolbar);
+        getSupportActionBar();
+        setSupportActionBar(toolbar);
 
           FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         View checkBoxView = View.inflate(this, R.layout.dialog_check, null);

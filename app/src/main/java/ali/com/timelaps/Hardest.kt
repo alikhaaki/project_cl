@@ -87,6 +87,8 @@ class Hardest : AppCompatActivity() {
 
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
 
+            position.x=xxxxx
+            position.y=yyyyy
 
             tapMeButton.layoutParams = position
 

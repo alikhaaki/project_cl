@@ -7,6 +7,7 @@ import android.os.CountDownTimer
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -45,6 +46,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private var toolbar: Toolbar? = null
+
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +59,8 @@ class MainActivity : AppCompatActivity() {
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name")
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
         mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        toolbar=findViewById(R.id.toolbar_main)
+        setSupportActionBar(toolbar)
 
 
         val t = Thread(Runnable {
