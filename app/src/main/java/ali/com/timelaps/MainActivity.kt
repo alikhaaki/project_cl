@@ -1,10 +1,12 @@
 package ali.com.timelaps
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.preference.PreferenceManager
+import android.support.annotation.ColorInt
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
@@ -15,85 +17,44 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
- import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class MainActivity : AppCompatActivity() {
 
+    private var score = 0
+    internal val initialCountDown: Long = 60000
+    internal val countDownInterval: Long = 1000
+    private var gameStarted = false
+    internal var timeLeftOnTimer: Long = 60000
+
     private lateinit var tapMeButton: Button
     private lateinit var gameScoreTextView: TextView
     internal lateinit var timeLeftTextView: TextView
-    private val toast: Toast? = null
-
-    private var score = 0
-    private var gameStarted = false
     private lateinit var countDownTimer: CountDownTimer
-    internal val initialCountDown: Long = 60000
-    internal val countDownInterval: Long = 1000
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
-    internal var timeLeftOnTimer: Long = 60000
-
-    companion object {
-        private val SCORE_KEY = "SCORE_KEY"
-        private val TIME_LEFT_KEY = "TIME_LEFT_KEY"
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-    }
-
     private var toolbar: Toolbar? = null
-
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
+
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        treadIntroSetup()
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id")
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name")
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
-        mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-        toolbar=findViewById(R.id.toolbar_main)
+        mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
+        toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
 
-
-        val t = Thread(Runnable {
-            //  Initialize SharedPreferences
-            val getPrefs = PreferenceManager
-                .getDefaultSharedPreferences(baseContext)
-
-            //  Create a new boolean and preference and set it to true
-            val isFirstStart = getPrefs.getBoolean("firstStart", true)
-
-            //  If the activity has never started before...
-            if (isFirstStart) {
-
-                //  Launch app intro
-                val i = Intent(this@MainActivity, IntroActivity::class.java)
-
-                runOnUiThread { startActivity(i) }
-
-                //  Make a new preferences editor
-                val e = getPrefs.edit()
-
-                //  Edit preference to make it false because we don't want this to run again
-                e.putBoolean("firstStart", false)
-
-                //  Apply changes
-                e.apply()
-            }
-        })
-
-        // Start the thread
-        t.start()
-
-
+        supportActionBar?.title="سطح معمولی"
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
         timeLeftTextView = findViewById(R.id.time_left_text_view)
@@ -114,13 +75,10 @@ class MainActivity : AppCompatActivity() {
 
         tapMeButton.setOnClickListener { view ->
 
+            if (textYourScore.visibility == View.VISIBLE) {
+                textYourScore.visibility = View.GONE
+            }
 
-            val parent = findViewById<View>(android.R.id.content)
-
-            Snackbar.make(parent, "this is main ", Snackbar.LENGTH_LONG).setAction(
-                "close"
-            ) { }.setActionTextColor(resources.getColor(R.color.colorPrimaryDark))
-                .show()
 
             val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
             view.startAnimation(bounceAnimation)
@@ -132,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 
     private fun restoreGame() {
         gameScoreTextView.text = getString(R.string.your_score, score.toString())
@@ -163,42 +122,6 @@ class MainActivity : AppCompatActivity() {
         countDownTimer.cancel()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        toast?.cancel()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toast?.cancel()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        toast?.cancel()
-    }
-
-    private fun resetGame() {
-        score = 0
-        gameScoreTextView.text = getString(R.string.your_score, score.toString())
-        val initialTimeLeft = initialCountDown / 1000
-        timeLeftTextView.text = getString(R.string.time_left, initialTimeLeft.toString())
-
-        countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
-            override fun onTick(millisUntilFinished: Long) {
-                timeLeftOnTimer = millisUntilFinished
-                val timeLeft = millisUntilFinished / 1000
-                timeLeftTextView.text = getString(R.string.time_left, timeLeft.toString())
-            }
-
-            override fun onFinish() {
-                toast?.cancel()
-                endGame()
-            }
-        }
-        gameStarted = false
-    }
-
     private fun startGame() {
         countDownTimer.start()
         gameStarted = true
@@ -206,7 +129,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun endGame() {
 
-        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+        val parent = findViewById<View>(android.R.id.content)
+
+        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
+            "باشه !"
+        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
+            .show()
+
 
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
@@ -240,5 +170,70 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    private fun resetGame() {
+        score = 0
+        gameScoreTextView.text = getString(R.string.your_score, score.toString())
+        val initialTimeLeft = initialCountDown / 1000
+        timeLeftTextView.text = getString(R.string.time_left, initialTimeLeft.toString())
+
+        countDownTimer = object : CountDownTimer(initialCountDown, countDownInterval) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeLeftOnTimer = millisUntilFinished
+                val timeLeft = millisUntilFinished / 1000
+                timeLeftTextView.text = getString(R.string.time_left, timeLeft.toString())
+            }
+
+            override fun onFinish() {
+                 endGame()
+            }
+        }
+        gameStarted = false
+    }
+
+    private fun treadIntroSetup() {
+
+        val t = Thread(Runnable {
+            //  Initialize SharedPreferences
+            val getPrefs = PreferenceManager
+                .getDefaultSharedPreferences(baseContext)
+
+            //  Create a new boolean and preference and set it to true
+            val isFirstStart = getPrefs.getBoolean("firstStart", true)
+
+            //  If the activity has never started before...
+            if (isFirstStart) {
+
+                //  Launch app intro
+                val i = Intent(this@MainActivity, IntroActivity::class.java)
+
+                runOnUiThread { startActivity(i) }
+
+                //  Make a new preferences editor
+                val e = getPrefs.edit()
+
+                //  Edit preference to make it false because we don't want this to run again
+                e.putBoolean("firstStart", false)
+
+                //  Apply changes
+                e.apply()
+            }
+        })
+
+        // Start the thread
+        t.start()
+
+
+    }
+
+    companion object {
+        private const val SCORE_KEY = "SCORE_KEY"
+        private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
+    }
+
+
+    fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
+        this.view.setBackgroundColor(colorInt)
+        return this
+    }
 
 }

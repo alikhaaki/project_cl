@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.widget.SwitchCompat
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -29,14 +30,18 @@ class Hard1 : AppCompatActivity() {
     internal var timeLeftOnTimer: Long = 60000
 
     companion object {
-        private val SCORE_KEY = "SCORE_KEY"
-        private val TIME_LEFT_KEY = "TIME_LEFT_KEY"
+        private const val SCORE_KEY = "SCORE_KEY"
+        private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
+    private var toolbar:Toolbar?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hard1)
 
+        toolbar=findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title ="سطح متوسط"
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
         timeLeftTextView = findViewById(R.id.time_left_text_view)

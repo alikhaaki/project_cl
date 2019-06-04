@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.widget.SwitchCompat
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.AbsoluteLayout
 import android.widget.Button
@@ -31,23 +32,20 @@ class Hardest : AppCompatActivity() {
 
 
     companion object {
-        private val SCORE_KEY = "SCORE_KEY"
-        private val TIME_LEFT_KEY = "TIME_LEFT_KEY"
+        private const val SCORE_KEY = "SCORE_KEY"
+        private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
-    private fun randInt(min: Int, max: Int): Int {
-
-
-        val rand: Random? = null
-
-
-        return rand!!.nextInt(max - min + 1) + min
-    }
-
+    private var toolbar: Toolbar?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardest)
 
+
+
+        toolbar=findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title ="خیلی خیلی خیلی سخت"
 
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
@@ -74,25 +72,15 @@ class Hardest : AppCompatActivity() {
             }
 
             val displayMetrics = this.resources.displayMetrics
-
             val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
             val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
-
             val ran = Random()
-            val x = ran.nextInt(dispHH) + 1
-            val y = ran.nextInt(dispWW) + 1
-
             val xxxxx = 10+ran.nextInt((dispHH-58)-10+1)
             val yyyyy = 10+ran.nextInt((dispWW-58)-10+1)
-
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
-
             position.x=xxxxx
             position.y=yyyyy
-
             tapMeButton.layoutParams = position
-
-
             incrementScore()
         }
 

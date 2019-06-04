@@ -4,9 +4,20 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:layoutDirection="rtl"
 	android:orientation="vertical"
 	tools:context=".Harder">
+	
+	<include
+		layout="@layout/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="56dp" />
+	
+<LinearLayout
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layoutDirection="rtl"
+	android:orientation="vertical">
+	
 
 	<RelativeLayout
 		android:layout_width="match_parent"
@@ -86,7 +97,6 @@
 		android:layout_marginTop="8dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="8dp"
-		
 		android:background="@color/colorPrimary"
 		android:fontFamily="@font/iransans"
 		android:text="@string/tap_me" />
@@ -112,4 +122,5 @@
   
 	 
 	</FrameLayout>
+	</LinearLayout>
 </LinearLayout>

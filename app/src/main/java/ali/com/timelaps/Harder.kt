@@ -5,16 +5,13 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
-import android.util.DisplayMetrics
-import android.util.Log
+import android.support.v7.widget.Toolbar
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.AbsoluteLayout
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import java.util.*
-import kotlin.math.log
 
 class Harder : AppCompatActivity() {
 
@@ -31,29 +28,23 @@ class Harder : AppCompatActivity() {
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
     internal var timeLeftOnTimer: Long = 60000
-    private val TAG = this@Harder.javaClass.simpleName
 
 
     companion object {
-        private val SCORE_KEY = "SCORE_KEY"
-        private val TIME_LEFT_KEY = "TIME_LEFT_KEY"
-    }
-
-    private fun randInt(min: Int, max: Int): Int {
-
-
-        val rand: Random? = null
-
-
-        return rand!!.nextInt(max - min + 1) + min
+        private const val SCORE_KEY = "SCORE_KEY"
+        private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
 
-
+    private var toolbar:Toolbar?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_harder)
 
+
+        toolbar=findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title ="سخت"
 
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
@@ -74,43 +65,21 @@ class Harder : AppCompatActivity() {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.mmm)
         tapMeButton.isSoundEffectsEnabled = false
-
         tapMeButton.setOnClickListener { view ->
-
             textYourScore.visibility=View.GONE
-
             if (switch.isChecked) {
                 mediaPlayer.start()
             }
-
             val displayMetrics = this.resources.displayMetrics
-
             val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
             val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
-
             val ran = Random()
-            val x = ran.nextInt(dispHH) + 1
-            val y = ran.nextInt(dispWW) + 1
-
             val xxxxx = 10+ran.nextInt((dispHH-58)-10+1)
             val yyyyy = 10+ran.nextInt((dispWW-58)-10+1)
-
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
-
-
-            Log.i("my_tag height ", "height is = $dispHH")
-            Log.i("my_tag width  ", "width  is = $dispWW")
-
-            Log.i("my_tag xxxx  ", "xxxx  is = $x")
-            Log.i("my_tag yyy  ", "yyyy  is = $y")
-
             position.x = xxxxx
             position.y = yyyyy
-
-
             tapMeButton.layoutParams = position
-
-
             incrementScore()
         }
 
@@ -145,7 +114,6 @@ class Harder : AppCompatActivity() {
         outState.putLong(TIME_LEFT_KEY, timeLeftOnTimer)
         countDownTimer.cancel()
     }
-
 
     private fun resetGame() {
         score = 0
@@ -189,24 +157,4 @@ class Harder : AppCompatActivity() {
 
     }
 
-
-//
-//    DisplayMetrics displayMetrics1 = this.getResources().getDisplayMetrics();
-//
-//    int dispHH = (int) (displayMetrics1.heightPixels / displayMetrics1.density);
-//    int dispWW = (int) (displayMetrics1.widthPixels / displayMetrics1.density);
-//
-//    Log.i(TAG, "dispHH = " + dispHH);
-//    Log.i(TAG, "dispWW = " + dispWW);
-//
-//    Random random = new Random();
-//
-//    AbsoluteLayout.LayoutParams position = (AbsoluteLayout.LayoutParams) button.getLayoutParams();
-//
-//
-//    position.x = (random.nextInt(dispHH)) - 8;
-//    position.y = (random.nextInt(dispWW)) - 8;
-//
-//
-//    button.setLayoutParams(position);
 }

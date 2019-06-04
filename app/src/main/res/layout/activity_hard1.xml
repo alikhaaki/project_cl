@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="#d3d3d3"
-	android:layoutDirection="rtl"
+	android:orientation="vertical"
 	tools:context=".MainActivity">
 	
+	<include
+		layout="@layout/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="56dp" />
 	
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layoutDirection="rtl">
+		
 	<android.support.v7.widget.SwitchCompat
 		android:id="@+id/switchh"
 		android:layout_width="150dp"
@@ -99,5 +108,6 @@
 		android:textSize="18sp"
 		android:visibility="gone" />
   
-	 
-</RelativeLayout>
+	</RelativeLayout>
+	
+</LinearLayout>
