@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,17 @@ public class Sample extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_check);
 
+
+
+        View parent=findViewById(android.R.id.content);
+
+        Snackbar.make(parent, "this is main ", Snackbar.LENGTH_LONG).setAction("close", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).setActionTextColor(getResources().getColor(R.color.colorPrimaryDark))
+                .show();
         toolbar=findViewById(R.id.toolbar);
         getSupportActionBar();
         setSupportActionBar(toolbar);

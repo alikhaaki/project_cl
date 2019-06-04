@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.preference.PreferenceManager
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
@@ -15,8 +16,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.andrognito.flashbar.Flashbar
-import com.google.firebase.analytics.FirebaseAnalytics
+ import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class MainActivity : AppCompatActivity() {
@@ -115,6 +115,13 @@ class MainActivity : AppCompatActivity() {
         tapMeButton.setOnClickListener { view ->
 
 
+            val parent = findViewById<View>(android.R.id.content)
+
+            Snackbar.make(parent, "this is main ", Snackbar.LENGTH_LONG).setAction(
+                "close"
+            ) { }.setActionTextColor(resources.getColor(R.color.colorPrimaryDark))
+                .show()
+
             val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
             view.startAnimation(bounceAnimation)
             if (switch.isChecked) {
@@ -200,8 +207,7 @@ class MainActivity : AppCompatActivity() {
     private fun endGame() {
 
         Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
-        Flashbar.Builder(this).gravity(Flashbar.Gravity.BOTTOM).duration(600)
-            .message(getString(R.string.game_over_message, score.toString())).build()
+
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
         resetGame()
