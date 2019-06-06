@@ -36,6 +36,12 @@ class Harder : AppCompatActivity() {
     }
 
 
+
+    public override fun onResume() {
+        super.onResume()
+        resetGame()
+     }
+
     private var toolbar:Toolbar?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

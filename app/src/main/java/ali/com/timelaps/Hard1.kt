@@ -1,16 +1,14 @@
 package ali.com.timelaps
 
 import android.media.MediaPlayer
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 
@@ -34,14 +32,21 @@ class Hard1 : AppCompatActivity() {
         private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
-    private var toolbar:Toolbar?=null
+
+    public override fun onResume() {
+        super.onResume()
+        resetGame()
+
+    }
+
+    private var toolbar: Toolbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hard1)
 
-        toolbar=findViewById(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title ="سطح متوسط"
+        supportActionBar?.title = "سطح متوسط"
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
         timeLeftTextView = findViewById(R.id.time_left_text_view)
@@ -65,7 +70,7 @@ class Hard1 : AppCompatActivity() {
         tapMeButton.setOnClickListener { view ->
 
 
-            textYourScore.visibility=View.INVISIBLE
+            textYourScore.visibility = View.INVISIBLE
 
             val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
             view.startAnimation(bounceAnimation)

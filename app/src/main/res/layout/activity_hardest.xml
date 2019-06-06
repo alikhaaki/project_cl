@@ -6,12 +6,12 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical"
 	tools:context=".Harder">
-
-	<include
-		layout="@layout/toolbar"
+ 
+	<android.support.v7.widget.Toolbar
 		android:layout_width="match_parent"
-		android:layout_height="56dp" />
-	
+		android:id="@+id/toolbar"
+		android:background="#EB0505"
+		android:layout_height="56dp"/>
 	<LinearLayout
 		android:layoutDirection="rtl"
 		android:orientation="vertical"
@@ -50,9 +50,9 @@
 		android:id="@+id/text_hard_tozih"
 		style="@style/textHard"
 		android:layout_width="match_parent"
-		android:layout_height="56dp"
+		android:layout_height="32dp"
 		android:layout_below="@+id/text_sedaye_dokme"
-		android:text="سطح : خیلی خیلی سخت ! " />
+		 />
 	
 	<TextView
 		android:id="@+id/game_score_text_view"

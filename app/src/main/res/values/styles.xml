@@ -14,13 +14,13 @@
 	
 	<style name="textViewStyle" >
 		<item name="android:textSize">18sp</item>
-		<item name="android:background">@drawable/back_text_view</item>
+		<item name="android:background">@null</item>
 		<item name="android:layout_marginLeft">@dimen/margin_standard</item>
 		<item name="android:layout_marginRight">@dimen/margin_standard</item>
 		<item name="android:gravity">center_vertical|center_horizontal</item>
 		<item name="android:textColor">@color/black</item>
   	</style>
 	<style name="textHard" parent="textViewStyle">
-		<item name="android:background">@drawable/back_hardest</item>
+		<item name="android:background">@null</item>
 	</style>
 </resources>

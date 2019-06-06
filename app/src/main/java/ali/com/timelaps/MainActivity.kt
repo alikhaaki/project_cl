@@ -38,6 +38,11 @@ class MainActivity : AppCompatActivity() {
     private var toolbar: Toolbar? = null
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
 
+    public override fun onResume() {
+        super.onResume()
+        resetGame()
+    }
+
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
 
-        supportActionBar?.title="سطح معمولی"
+        supportActionBar?.title = "سطح معمولی"
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
         timeLeftTextView = findViewById(R.id.time_left_text_view)
@@ -184,7 +189,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                 endGame()
+                endGame()
             }
         }
         gameStarted = false

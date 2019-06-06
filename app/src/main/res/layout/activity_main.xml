@@ -4,22 +4,20 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:background="#d3d3d3"
 	android:orientation="vertical"
- 	tools:context=".MainActivity">
+	tools:context=".MainActivity">
 	
  
 	<android.support.v7.widget.Toolbar
-		android:layout_width="match_parent"
 		android:id="@+id/toolbar_main"
-  		android:background="@color/colorPrimary"
-		
-		android:layout_height="56dp"/>
+		android:layout_width="match_parent"
+		android:layout_height="56dp"
+		android:background="@color/colorPrimary" />
 	<RelativeLayout
-		android:layoutDirection="rtl"
- 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layoutDirection="rtl">
 		
 		
 
@@ -73,11 +71,10 @@
 	
 	<TextView
 		android:id="@+id/text_hard_tozih"
-		android:layout_width="match_parent"
-		android:layout_height="56dp"
 		style="@style/textViewStyle"
-		android:layout_below="@+id/text_sedaye_dokme"
-		android:text="سطح : معمولی" />
+		android:layout_width="match_parent"
+		android:layout_height="32dp"
+		android:layout_below="@+id/text_sedaye_dokme" />
 	
 	<Button
 		android:id="@+id/tap_me_button"
@@ -88,6 +85,7 @@
 		android:layout_marginTop="8dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="8dp"
+		android:background="@drawable/back_new"
 		android:fontFamily="@font/iransans"
 		android:text="@string/tap_me" />
  

@@ -36,6 +36,11 @@ class Hardest : AppCompatActivity() {
         private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
+    public override fun onResume() {
+        super.onResume()
+        resetGame()
+     }
+
     private var toolbar: Toolbar?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
