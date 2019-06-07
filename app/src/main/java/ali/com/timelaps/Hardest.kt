@@ -4,6 +4,8 @@ import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.annotation.ColorInt
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
@@ -75,6 +77,8 @@ class Hardest : AppCompatActivity() {
             if (switch.isChecked) {
                 mediaPlayer.start()
             }
+
+
 
             val displayMetrics = this.resources.displayMetrics
             val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
@@ -153,7 +157,14 @@ class Hardest : AppCompatActivity() {
     }
 
     private fun endGame() {
-        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+        val parent = findViewById<View>(android.R.id.content)
+
+        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
+            "باشه !"
+        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
+            .show()
+
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
         resetGame()
@@ -169,5 +180,10 @@ class Hardest : AppCompatActivity() {
 
     }
 
+
+    private fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
+        this.view.setBackgroundColor(colorInt)
+        return this
+    }
 
 }

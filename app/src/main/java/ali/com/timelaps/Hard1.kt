@@ -3,6 +3,8 @@ package ali.com.timelaps
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.annotation.ColorInt
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
@@ -145,7 +147,15 @@ class Hard1 : AppCompatActivity() {
     }
 
     private fun endGame() {
-        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+
+        val parent = findViewById<View>(android.R.id.content)
+
+        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
+            "باشه !"
+        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
+            .show()
+
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = score.toString()
         resetGame()
@@ -159,6 +169,11 @@ class Hard1 : AppCompatActivity() {
         val newScore = getString(R.string.your_score, score.toString())
         gameScoreTextView.text = newScore
 
+    }
+
+    private fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
+        this.view.setBackgroundColor(colorInt)
+        return this
     }
 
 }

@@ -1,16 +1,19 @@
 package ali.com.timelaps
 
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.annotation.ColorInt
+import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
+import android.view.Gravity
 import android.view.View
-import android.widget.AbsoluteLayout
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import java.util.*
 
 class Harder : AppCompatActivity() {
@@ -22,12 +25,12 @@ class Harder : AppCompatActivity() {
     private var score = 0
     private var gameStarted = false
     private lateinit var countDownTimer: CountDownTimer
-    internal val initialCountDown: Long = 60000
+    internal val initialCountDown: Long = 5000
     internal val countDownInterval: Long = 1000
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
-    internal var timeLeftOnTimer: Long = 60000
+    internal var timeLeftOnTimer: Long = 5000
 
 
     companion object {
@@ -36,21 +39,20 @@ class Harder : AppCompatActivity() {
     }
 
 
-
     public override fun onResume() {
         super.onResume()
         resetGame()
-     }
+    }
 
-    private var toolbar:Toolbar?=null
+    private var toolbar: Toolbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_harder)
 
 
-        toolbar=findViewById(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title ="سخت"
+        supportActionBar?.title = "سخت"
 
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
@@ -72,19 +74,33 @@ class Harder : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.mmm)
         tapMeButton.isSoundEffectsEnabled = false
         tapMeButton.setOnClickListener { view ->
-            textYourScore.visibility=View.GONE
+            textYourScore.visibility = View.GONE
+
             if (switch.isChecked) {
                 mediaPlayer.start()
             }
+
+            val random = Random()
+            val red = random.nextInt(256 - 70) + 70
+            val blue = random.nextInt(256 - 70) + 70
+            val yellow = random.nextInt(256 - 70) + 70
+            val backColor = Color.argb(255, red, blue, yellow)
+
+
+            val drawable = tapMeButton.background
+            DrawableCompat.setTint(drawable, backColor)
+
+
+
             val displayMetrics = this.resources.displayMetrics
-            val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
-            val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
+            val displayHeight = (displayMetrics.heightPixels / displayMetrics.density).toInt()
+            val displayWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
             val ran = Random()
-            val xxxxx = 10+ran.nextInt((dispHH-58)-10+1)
-            val yyyyy = 10+ran.nextInt((dispWW-58)-10+1)
+            val xPosition = 10 + ran.nextInt((displayHeight - 58) - 10 + 1)
+            val yPosition = 10 + ran.nextInt((displayWidth - 58) - 10 + 1)
             val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
-            position.x = xxxxx
-            position.y = yyyyy
+            position.x = xPosition
+            position.y = yPosition
             tapMeButton.layoutParams = position
             incrementScore()
         }
@@ -147,7 +163,25 @@ class Harder : AppCompatActivity() {
     }
 
     private fun endGame() {
-        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+        val parent = findViewById<View>(android.R.id.content)
+
+        val coordinatorLayout = findViewById<CoordinatorLayout>(R.id.viewSnack)
+//        val snackbar = Snackbar.make(parent, "text", Snackbar.LENGTH_LONG)
+//
+////
+//        val layoutParams = snackbar.view.layoutParams as CoordinatorLayout.LayoutParams
+//        layoutParams.anchorId = R.id.text_score_tozih //Id for your bottomNavBar or TabLayout
+//        layoutParams.anchorGravity = Gravity.TOP
+//        layoutParams.gravity = Gravity.TOP
+//        snackbar.view.layoutParams = layoutParams
+//        snackbar.show()
+////
+        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
+            "باشه !"
+        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
+            .show()
+
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
         resetGame()
@@ -161,6 +195,12 @@ class Harder : AppCompatActivity() {
         val newScore = getString(R.string.your_score, score.toString())
         gameScoreTextView.text = newScore
 
+    }
+
+
+    private fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
+        this.view.setBackgroundColor(colorInt)
+        return this
     }
 
 }
