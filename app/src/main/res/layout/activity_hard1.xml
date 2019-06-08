@@ -9,7 +9,6 @@
 	tools:context=".MainActivity">
 	
 	<include
-		
 		layout="@layout/toolbar"
 		android:layout_width="match_parent"
 		android:layout_height="56dp" />
@@ -48,8 +47,7 @@
 		style="@style/textViewStyle"
 		android:layout_width="match_parent"
 		android:layout_height="32dp"
-		android:layout_below="@+id/sedaye_dokme"
-		  />
+		android:layout_below="@+id/sedaye_dokme" />
 	
 	<TextView
 		android:id="@+id/game_score_text_view"
@@ -80,19 +78,17 @@
 	
 	<Button
 		android:id="@+id/tap_me_button"
-		android:layout_width="28dp"
-		android:layout_height="28dp"
+		android:layout_width="25dp"
+		android:layout_height="25dp"
 		android:layout_centerInParent="true"
 		android:layout_marginStart="8dp"
 		android:layout_marginTop="8dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="8dp"
-		android:background="@android:color/holo_orange_dark"
+		android:background="@drawable/back_new"
 		android:fontFamily="@font/iransans"
-		android:text="!" />
- 
-
-	
+		 />
+		
 	<TextView
 		android:id="@+id/text_score_tozih"
 		android:layout_width="wrap_content"
@@ -100,11 +96,9 @@
 		android:layout_below="@id/tap_me_button"
 		android:layout_centerHorizontal="true"
 		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
+		android:layout_marginTop="50dp"
 		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="8dp"
-		android:fontFamily="@font/iransans"
-		android:text="@string/your_score_tozih"
+ 		android:text="@string/your_score_tozih"
 		android:textColor="@android:color/black"
 		android:textSize="18sp"
 		android:visibility="gone" />

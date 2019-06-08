@@ -1,18 +1,27 @@
+@file:Suppress("DEPRECATION")
+
 package ali.com.timelaps
 
+import android.app.Activity
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.annotation.ColorInt
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
+import android.view.Gravity
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.AbsoluteLayout
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
-import android.widget.Toast
 import java.util.*
 
 class Hardest : AppCompatActivity() {
@@ -32,27 +41,33 @@ class Hardest : AppCompatActivity() {
     internal var timeLeftOnTimer: Long = 60000
     private val TAG = this@Hardest.javaClass.getSimpleName()
 
+    private lateinit var dialog: Dialog
+
 
     companion object {
         private const val SCORE_KEY = "SCORE_KEY"
         private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
+
     public override fun onResume() {
         super.onResume()
+        dialog.dismiss()
         resetGame()
-     }
+    }
 
-    private var toolbar: Toolbar?=null
+    private var toolbar: Toolbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardest)
 
 
+        dialog = Dialog(this@Hardest)
 
-        toolbar=findViewById(R.id.toolbar)
+
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title ="خیلی خیلی خیلی سخت"
+        supportActionBar?.title = "خیلی خیلی خیلی سخت"
 
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
@@ -72,23 +87,22 @@ class Hardest : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.mmm)
         tapMeButton.isSoundEffectsEnabled = false
 
-        tapMeButton.setOnClickListener { view ->
+        tapMeButton.setOnClickListener {
 
             if (switch.isChecked) {
                 mediaPlayer.start()
             }
 
 
-
             val displayMetrics = this.resources.displayMetrics
             val dispHH = (displayMetrics.heightPixels / displayMetrics.density).toInt()
             val dispWW = (displayMetrics.widthPixels / displayMetrics.density).toInt()
             val ran = Random()
-            val xxxxx = 10+ran.nextInt((dispHH-58)-10+1)
-            val yyyyy = 10+ran.nextInt((dispWW-58)-10+1)
-            val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
-            position.x=xxxxx
-            position.y=yyyyy
+            val xxxxx = 10 + ran.nextInt((dispHH - 58) - 10 + 1)
+            val yyyyy = 10 + ran.nextInt((dispWW - 58) - 10 + 1)
+            @Suppress("DEPRECATION") val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
+            position.x = xxxxx
+            position.y = yyyyy
             tapMeButton.layoutParams = position
             incrementScore()
         }
@@ -125,12 +139,6 @@ class Hardest : AppCompatActivity() {
         countDownTimer.cancel()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-    }
-
-
     private fun resetGame() {
         score = 0
         gameScoreTextView.text = getString(R.string.your_score, score.toString())
@@ -156,14 +164,20 @@ class Hardest : AppCompatActivity() {
         gameStarted = true
     }
 
+    @Suppress("DEPRECATION")
     private fun endGame() {
-//        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
-        val parent = findViewById<View>(android.R.id.content)
+//        val parent = findViewById<View>(android.R.id.content)
+//
+//        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
+//            "باشه !"
+//        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
+//            .show()
 
-        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
-            "باشه !"
-        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
-            .show()
+
+//        val alert = ViewDialog()
+//        alert.showDialog(this@Hardest)
+
+        customDialogMethod()
 
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
@@ -186,4 +200,74 @@ class Hardest : AppCompatActivity() {
         return this
     }
 
+
+    inner class ViewDialog {
+
+        fun showDialog(activity: Activity) {
+            val dialog = Dialog(activity)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.newcustom_layout_dialog)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+
+            val textViewDialog: TextView = dialog.findViewById(R.id.text_dialog_tozih_score)
+            textViewDialog.text = getString(R.string.string_tozih_dialog, score.toString())
+
+            val frameYes: FrameLayout = dialog.findViewById(R.id.frmOk)
+
+//            val mDialogOk = activity.frmOk
+            frameYes.setOnClickListener {
+                dialog.cancel()
+            }
+
+            dialog.show()
+        }
+    }
+
+
+    override fun onPause() {
+        dialog.dismiss()
+        resetGame()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        resetGame()
+        dialog.dismiss()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        resetGame()
+        dialog.dismiss()
+    }
+
+    private fun customDialogMethod() {
+
+        dialog = Dialog(this@Hardest)
+        dialog.setContentView(R.layout.newcustom_layout_dialog)
+        val params = WindowManager.LayoutParams()
+        params.copyFrom(dialog.window!!.attributes)
+        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.gravity = Gravity.CENTER
+        dialog.window!!.attributes = params
+        dialog.window!!.setBackgroundDrawableResource(R.color.colorPrimary)
+        val frameLayout = dialog.findViewById<FrameLayout>(R.id.frmOk)
+        val textViewDialog = dialog.findViewById<TextView>(R.id.text_dialog_tozih_score)
+
+        textViewDialog.text = getString(R.string.string_tozih_dialog, score.toString())
+
+
+        frameLayout.setOnClickListener {
+            dialog.dismiss()
+        }
+        if (!this@Hardest.isFinishing) {
+            dialog.show()
+
+        }
+
+    }
 }
