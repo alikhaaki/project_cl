@@ -31,6 +31,8 @@ public class Sample extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_check);
 
+        Button button=new Button(this);
+
         dialog=new Dialog(Sample.this);
         dialog.setContentView(R.layout.newcustom_layout_dialog);
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();

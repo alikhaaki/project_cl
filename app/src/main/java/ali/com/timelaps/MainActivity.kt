@@ -1,17 +1,16 @@
 package ali.com.timelaps
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.preference.PreferenceManager
 import android.support.annotation.ColorInt
 import android.support.design.widget.Snackbar
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
@@ -21,10 +20,10 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.firebase.analytics.FirebaseAnalytics
-
+import java.util.*
 
 @Suppress("DEPRECATION")
-open class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private var score = 0
     internal val initialCountDown: Long = 60000
@@ -38,15 +37,15 @@ open class MainActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
-    private var toolbar: Toolbar? = null
-    private var mFireBaseAnalytics: FirebaseAnalytics? = null
+    private lateinit var toolbar: Toolbar
+    private lateinit var mFireBaseAnalytics: FirebaseAnalytics
     private lateinit var dialog: Dialog
-
 
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         treadIntroSetup()
 
         dialog = Dialog(this@MainActivity)
@@ -69,7 +68,8 @@ open class MainActivity : AppCompatActivity() {
         switch = findViewById(R.id.switchh)
 
 
-        if (savedInstanceState != null) {
+
+         if (savedInstanceState != null) {
             score = savedInstanceState.getInt(SCORE_KEY)
             timeLeftOnTimer = savedInstanceState.getLong(TIME_LEFT_KEY)
             restoreGame()
@@ -86,8 +86,18 @@ open class MainActivity : AppCompatActivity() {
                 textYourScore.visibility = View.GONE
             }
 
+            val random = Random()
+            val red = random.nextInt(256 - 70) + 70
+            val blue = random.nextInt(256 - 70) + 70
+            val yellow = random.nextInt(256 - 70) + 70
+            val backColor = Color.argb(255, red, blue, yellow)
 
-            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
+
+            val drawable = tapMeButton.background
+            DrawableCompat.setTint(drawable, backColor)
+
+
+            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_grow_fade_in_from_bottom)
             view.startAnimation(bounceAnimation)
             if (switch.isChecked) {
                 mediaPlayer.start()
@@ -97,7 +107,6 @@ open class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
     private fun restoreGame() {
         gameScoreTextView.text = getString(R.string.your_score, score.toString())
@@ -229,8 +238,6 @@ open class MainActivity : AppCompatActivity() {
 
         // Start the thread
         t.start()
-
-
     }
 
     companion object {
@@ -238,35 +245,10 @@ open class MainActivity : AppCompatActivity() {
         private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
-
     fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
         this.view.setBackgroundColor(colorInt)
         return this
     }
-
-    inner class ViewDialog {
-
-        fun showDialog(activity: Activity) {
-            val dialog = Dialog(activity)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setCancelable(false)
-            dialog.setContentView(R.layout.newcustom_layout_dialog)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-            val textViewDialog: TextView = dialog.findViewById(R.id.text_dialog_tozih_score)
-            textViewDialog.text = getString(R.string.string_tozih_dialog, score.toString())
-
-            val frameYes: FrameLayout = dialog.findViewById(R.id.frmOk)
-
-//            val mDialogOk = activity.frmOk
-            frameYes.setOnClickListener {
-                dialog.cancel()
-            }
-
-            dialog.show()
-        }
-    }
-
 
     public override fun onResume() {
         super.onResume()
