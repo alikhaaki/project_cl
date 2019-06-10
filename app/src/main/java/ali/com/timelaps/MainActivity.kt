@@ -41,6 +41,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mFireBaseAnalytics: FirebaseAnalytics
     private lateinit var dialog: Dialog
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        resetGame()
+
+    }
+
+
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id")
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name")
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
-        mFireBaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+        mFireBaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 
         toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
@@ -69,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-         if (savedInstanceState != null) {
+        if (savedInstanceState != null) {
             score = savedInstanceState.getInt(SCORE_KEY)
             timeLeftOnTimer = savedInstanceState.getLong(TIME_LEFT_KEY)
             restoreGame()
@@ -179,11 +187,42 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         super.onOptionsItemSelected(item)
-        if (item != null) when {
-            item.itemId == R.id.go_to_hard_1_menu -> startActivity(Intent(this, Hard1::class.java))
-            item.itemId == R.id.go_to_hardest_gaem -> startActivity(Intent(this, Hardest::class.java))
-            item.itemId == R.id.go_to_hard_2_menu -> startActivity(Intent(this, Harder::class.java))
+
+        when (item?.itemId) {
+
+            R.id.go_to_hard_1_menu -> {
+                if (gameStarted) {
+                    finish()
+                    resetGame()
+                    startActivity(Intent(this, Hard1::class.java))
+
+                } else {
+                    resetGame()
+                    startActivity(Intent(this, Hard1::class.java))
+                }
+            }
+            R.id.go_to_hard_2_menu -> {
+                if (gameStarted) {
+                    resetGame()
+                    startActivity(Intent(this, Harder::class.java))
+                    finish()
+
+                } else {
+                    resetGame()
+                    startActivity(Intent(this, Harder::class.java))
+                }
+            }
+            R.id.go_to_hardest_gaem -> {
+                if (gameStarted) {
+                    resetGame()
+                    startActivity(Intent(this, Hardest::class.java))
+                    finish()
+                }
+                resetGame()
+                 startActivity(Intent(this, Hardest::class.java))
+            }
         }
+
         return true
     }
 

@@ -4,16 +4,16 @@
 	android:layoutDirection="rtl">
 	
 	<item
-		android:id="@+id/go_to_hard_1_menu"
+		android:id="@+id/menu_hard1_mainactivity"
 		android:enabled="true"
 		android:icon="@drawable/ic_menu_over_flow"
-		android:title="متوسط"
+		android:title="معمولی"
 		android:visible="true"
 		app:showAsAction="collapseActionView" />
 	
 	
 	<item
-		android:id="@+id/go_to_hard_2_menu"
+		android:id="@+id/menu_hard1_harder"
 		android:enabled="true"
 		android:icon="@drawable/ic_menu_over_flow"
 		android:title="سخت"
@@ -21,7 +21,7 @@
 		app:showAsAction="collapseActionView" />
 	
 	<item
-		android:id="@+id/go_to_hardest_gaem"
+		android:id="@+id/menu_hard1_hardest"
 		android:enabled="true"
 		android:icon="@drawable/ic_menu_over_flow"
 		android:title="خیلی خیلی سخت"

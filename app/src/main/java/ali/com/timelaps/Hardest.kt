@@ -4,6 +4,7 @@ package ali.com.timelaps
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
@@ -14,10 +15,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
-import android.view.Gravity
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.widget.AbsoluteLayout
 import android.widget.Button
 import android.widget.FrameLayout
@@ -57,6 +55,41 @@ class Hardest : AppCompatActivity() {
     }
 
     private var toolbar: Toolbar? = null
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu_hard3, menu)
+        return true
+
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        super.onOptionsItemSelected(item)
+
+        when (item?.itemId) {
+
+            R.id.menu_hard3_mainactivity -> {
+                resetGame()
+                finish()
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+            R.id.menu_hard3_medium -> {
+                resetGame()
+                finish()
+                startActivity(Intent(this, Hard1::class.java))
+            }
+            R.id.menu_hard3_hard2 -> {
+                resetGame()
+                finish()
+                startActivity(Intent(this, Harder::class.java))
+            }
+        }
+
+        return true
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hardest)

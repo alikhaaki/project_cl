@@ -2,6 +2,7 @@ package ali.com.timelaps
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
@@ -13,10 +14,7 @@ import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
-import android.view.Gravity
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.FrameLayout
@@ -40,6 +38,40 @@ class Hard1 : AppCompatActivity() {
     internal var timeLeftOnTimer: Long = 30000
 
     private lateinit var dialog: Dialog
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu_hard1, menu)
+        return true
+
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        super.onOptionsItemSelected(item)
+
+        when (item?.itemId) {
+
+            R.id.menu_hard1_mainactivity -> {
+                resetGame()
+                finish()
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+            R.id.menu_hard1_harder -> {
+                resetGame()
+                finish()
+                startActivity(Intent(this, Harder::class.java))
+            }
+            R.id.menu_hard1_hardest -> {
+                resetGame()
+                finish()
+                startActivity(Intent(this, Hardest::class.java))
+            }
+        }
+
+        return true
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -158,7 +190,7 @@ class Hard1 : AppCompatActivity() {
     private fun endGame() {
 //        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
 
-        val parent = findViewById<View>(android.R.id.content)
+//        val parent = findViewById<View>(android.R.id.content)
 //
 //        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
 //            "باشه !"

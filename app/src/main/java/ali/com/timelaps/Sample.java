@@ -2,6 +2,7 @@ package ali.com.timelaps;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.*;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -24,16 +26,51 @@ public class Sample extends AppCompatActivity {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     Button button = new Button(this);
 
-     private AlertDialog alertDialog;
+    private AlertDialog alertDialog;
+    private TextView textYourScore;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.go_to_hard_1_menu:
+                textYourScore.setText("dlfkjdkl");
+                finish();
+                startActivity(new Intent(this,Hard1.class));
+                break;
+            case R.id.go_to_hard_2_menu:
+                textYourScore.setText("dlfkjdkl");
+                finish();
+                startActivity(new Intent(this,Hard1.class));
+                break;
+            case R.id.go_to_hardest_gaem:
+                textYourScore.setText("dlfkjdkl");
+                finish();
+                startActivity(new Intent(this,Hard1.class));
+                break;
+
+
+        }
+        return true;
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_check);
 
-        Button button=new Button(this);
 
-        dialog=new Dialog(Sample.this);
+
+        startActivity(new Intent(this, MainActivity.class));
+        Button button = new Button(this);
+
+        dialog = new Dialog(Sample.this);
         dialog.setContentView(R.layout.newcustom_layout_dialog);
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.copyFrom(dialog.getWindow().getAttributes());
@@ -42,9 +79,8 @@ public class Sample extends AppCompatActivity {
         params.gravity = Gravity.CENTER;
         dialog.getWindow().setAttributes(params);
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimary);
-        FrameLayout frameLayout=dialog.findViewById(R.id.frmOk);
-        if(!Sample.this.isFinishing())
-        {
+        FrameLayout frameLayout = dialog.findViewById(R.id.frmOk);
+        if (!Sample.this.isFinishing()) {
             //show dialog
         }
         frameLayout.setOnClickListener(new View.OnClickListener() {
@@ -57,10 +93,8 @@ public class Sample extends AppCompatActivity {
         dialog.show();
 
 
-
-
         dialogBuilder = new AlertDialog.Builder(this);
-         alertDialog = new AlertDialog.Builder(this)
+        alertDialog = new AlertDialog.Builder(this)
                 .setView(getLayoutInflater().inflate(R.layout.newcustom_layout_dialog, null))
                 .create();
 
@@ -72,9 +106,9 @@ public class Sample extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-          alertDialog
+        alertDialog
                 .setView(view);
-               dialog.show();
+        dialog.show();
 
         final AlertDialog alertD = new AlertDialog.Builder(this).create();
         button.setOnClickListener(new View.OnClickListener() {

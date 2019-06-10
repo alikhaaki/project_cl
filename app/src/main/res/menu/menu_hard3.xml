@@ -4,27 +4,27 @@
 	android:layoutDirection="rtl">
 	
 	<item
-		android:id="@+id/go_to_hard_1_menu"
+		android:id="@+id/menu_hard3_mainactivity"
+		android:enabled="true"
+		android:icon="@drawable/ic_menu_over_flow"
+		android:title="معمولی"
+		android:visible="true"
+		app:showAsAction="collapseActionView" />
+	
+	
+	<item
+		android:id="@+id/menu_hard3_medium"
 		android:enabled="true"
 		android:icon="@drawable/ic_menu_over_flow"
 		android:title="متوسط"
 		android:visible="true"
 		app:showAsAction="collapseActionView" />
 	
-	
 	<item
-		android:id="@+id/go_to_hard_2_menu"
+		android:id="@+id/menu_hard3_hard2"
 		android:enabled="true"
 		android:icon="@drawable/ic_menu_over_flow"
-		android:title="سخت"
-		android:visible="true"
-		app:showAsAction="collapseActionView" />
-	
-	<item
-		android:id="@+id/go_to_hardest_gaem"
-		android:enabled="true"
-		android:icon="@drawable/ic_menu_over_flow"
-		android:title="خیلی خیلی سخت"
+		android:title=" سخت"
 		android:visible="true"
 		app:showAsAction="collapseActionView" />
 	
