@@ -2,11 +2,13 @@
 
 package ali.com.timelaps
 
-import ali.com.timelaps.SampleHelperClass.*
+import ali.com.timelaps.SampleHelperClass.ID_PUBLIC
+import ali.com.timelaps.SampleHelperClass.TAG_MAIN_ACTIVITY
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.annotation.ColorInt
@@ -15,6 +17,7 @@ import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.AbsoluteLayout
@@ -54,19 +57,16 @@ class HarderActivity : AppCompatActivity() {
         when (item?.itemId) {
 
             R.id.menu_hard2_mainactivity -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
             R.id.menu_hard2_hard1 -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, HardActivity::class.java))
-            }
-            R.id.menu_hard1_hardest -> {
-                resetGame()
                 finish()
+            }
+            R.id.menu_hard2_hardest -> {
                 startActivity(Intent(this, HardestActivity::class.java))
+                finish()
             }
         }
 
@@ -76,31 +76,15 @@ class HarderActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        val inttttExtra = intent
+        val striiiiiiing = inttttExtra.getStringExtra(ID_PUBLIC)
+        if (striiiiiiing == TAG_MAIN_ACTIVITY) {
+            startActivity(Intent(this, MainActivity::class.java))
 
-        val intentt = intent
-
-        val text: String = intentt.getStringExtra(ID_PUBLIC) ?: "id"
-        when (text) {
-            TAG_MAIN_ACTIVITY -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-            TAG_HARDER -> {
-                startActivity(Intent(this, HarderActivity::class.java))
-                finish()
-
-            }
-            TAG_HARDEST -> {
-                startActivity(Intent(this, HardestActivity::class.java))
-                finish()
-            }
-            else -> {
-
-            }
         }
-
     }
 
+    private lateinit var absoluteLayout: AbsoluteLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_harder)
@@ -108,6 +92,7 @@ class HarderActivity : AppCompatActivity() {
         dialog = Dialog(this@HarderActivity)
 
 
+        absoluteLayout = findViewById(R.id.absolute_layout)
 
         toolbar = findViewById(R.id.toolbar)
         tapMeButton = findViewById(R.id.tap_me_button)
@@ -115,6 +100,33 @@ class HarderActivity : AppCompatActivity() {
         timeLeftTextView = findViewById(R.id.time_left_text_view)
         textYourScore = findViewById(R.id.text_score_tozih)
         switch = findViewById(R.id.switchh)
+
+        val lllllllll = absoluteLayout.measuredHeight
+        val bbbbbbbb = absoluteLayout.measuredWidth
+        val sssss = absoluteLayout.measuredHeightAndState
+
+        Log.i("harderrrrrrrrr", "mHe  =  $lllllllll  mWi = $bbbbbbbb  mesHWW = $ $sssss ... ")
+
+
+        val vto = absoluteLayout.getViewTreeObserver()
+        vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    absoluteLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this)
+                } else {
+                    absoluteLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
+                }
+                val width = absoluteLayout.getMeasuredWidth()
+                val height = absoluteLayout.getMeasuredHeight()
+
+                Log.i("harderrrrrrrrr", "mHe  =  $width  mWi = $height  ")
+
+            }
+        })
+
+
+
+
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = "سخت"

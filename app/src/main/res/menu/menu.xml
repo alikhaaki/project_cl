@@ -21,7 +21,7 @@
 		app:showAsAction="collapseActionView" />
 	
 	<item
-		android:id="@+id/go_to_hardest_gaem"
+		android:id="@+id/go_to_hardest_game"
 		android:enabled="true"
 		android:icon="@drawable/ic_menu_over_flow"
 		android:title="خیلی خیلی سخت"

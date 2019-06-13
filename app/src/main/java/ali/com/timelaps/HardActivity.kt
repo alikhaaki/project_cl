@@ -1,6 +1,7 @@
 package ali.com.timelaps
 
-import ali.com.timelaps.SampleHelperClass.*
+import ali.com.timelaps.SampleHelperClass.ID_PUBLIC
+import ali.com.timelaps.SampleHelperClass.TAG_MAIN_ACTIVITY
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
@@ -23,6 +24,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class HardActivity : AppCompatActivity() {
 
     private var toolbar: Toolbar? = null
@@ -53,21 +55,17 @@ class HardActivity : AppCompatActivity() {
         super.onOptionsItemSelected(item)
 
         when (item?.itemId) {
-
             R.id.menu_hard1_mainactivity -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
             R.id.menu_hard1_harder -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, HarderActivity::class.java))
+                finish()
             }
             R.id.menu_hard1_hardest -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, HardestActivity::class.java))
+                finish()
             }
         }
 
@@ -78,24 +76,12 @@ class HardActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        val intent = intent
-
-        val text: String = intent.getStringExtra(ID_PUBLIC) ?: "dlfdlsjfkl"
-        when (text) {
-            TAG_MAIN_ACTIVITY -> {
-                startActivity(Intent(this,MainActivity::class.java))
-                finish()
-            }
-            TAG_HARDER -> {
-                startActivity(Intent(this,HarderActivity::class.java))
-                finish()
-
-            }
-            else -> {
-
-            }
+        val intentExtraaaaa = intent
+        val vaaaaaaaaal = intentExtraaaaa.getStringExtra(ID_PUBLIC)
+        if (vaaaaaaaaal == TAG_MAIN_ACTIVITY) {
+            startActivity(Intent(this, MainActivity::class.java))
         }
-        Log.i(" hard1 ", "intent get it : = >>>> $text")
+
 
     }
 

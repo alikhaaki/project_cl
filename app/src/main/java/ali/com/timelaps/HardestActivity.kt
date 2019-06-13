@@ -2,7 +2,8 @@
 
 package ali.com.timelaps
 
-import ali.com.timelaps.SampleHelperClass.*
+import ali.com.timelaps.SampleHelperClass.ID_PUBLIC
+import ali.com.timelaps.SampleHelperClass.TAG_MAIN_ACTIVITY
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
@@ -67,26 +68,10 @@ class HardestActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        val intentt = intent
-
-        val text: String = intentt.getStringExtra(ID_PUBLIC) ?: "id"
-        when (text) {
-            TAG_MAIN_ACTIVITY -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-            TAG_HARDER -> {
-                startActivity(Intent(this, HarderActivity::class.java))
-                finish()
-
-            }
-            TAG_HARDEST -> {
-                startActivity(Intent(this, HardestActivity::class.java))
-                finish()
-            }
-            else -> {
-
-            }
+        val intentExtraaaaa = intent
+        val vaaaaaaaaal = intentExtraaaaa.getStringExtra(ID_PUBLIC)
+        if (vaaaaaaaaal == TAG_MAIN_ACTIVITY) {
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
     }
@@ -98,19 +83,16 @@ class HardestActivity : AppCompatActivity() {
         when (item?.itemId) {
 
             R.id.menu_hard3_mainactivity -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
             R.id.menu_hard3_medium -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, HardActivity::class.java))
+                finish()
             }
             R.id.menu_hard3_hard2 -> {
-                resetGame()
-                finish()
                 startActivity(Intent(this, HarderActivity::class.java))
+                finish()
             }
         }
 

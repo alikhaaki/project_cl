@@ -183,7 +183,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var doubleBackToExitPressedOnce = false
+
     override fun onBackPressed() {
+
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
             return
@@ -194,49 +196,60 @@ class MainActivity : AppCompatActivity() {
 
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
         resetGame()
+        val intentt = Intent()
+
+        when (intentt.getStringExtra(ID_PUBLIC) ?: "id") {
+            TAG_HARD -> {
+                startActivity(Intent(this, HardActivity::class.java))
+                finish()
+            }
+            TAG_HARDER -> {
+                startActivity(Intent(this, HarderActivity::class.java))
+                finish()
+
+            }
+            TAG_HARDEST -> {
+                startActivity(Intent(this, HardestActivity::class.java))
+                finish()
+            }
+
+        }
+
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         super.onOptionsItemSelected(item)
-        val intentt = Intent()
+
 
         when (item?.itemId) {
-
             R.id.go_to_hard_1_menu -> {
                 if (gameStarted) {
-                    val intent = Intent(this, HardActivity::class.java)
-                    intent.putExtra(ID_PUBLIC, TAG_MAIN_ACTIVITY)
-                    startActivity(intent)
-                    resetGame()
+                    val intentSample = Intent(this, HardActivity::class.java)
+                    intentSample.putExtra(ID_PUBLIC, TAG_MAIN_ACTIVITY)
+                    startActivity(intentSample)
                     finish()
                 } else {
-                     resetGame()
                     startActivity(Intent(this, HardActivity::class.java))
                 }
             }
             R.id.go_to_hard_2_menu -> {
                 if (gameStarted) {
-                    val intent = Intent(this, HarderActivity::class.java)
-                    intent.putExtra(ID_PUBLIC, TAG_HARDER)
-                    startActivity(intent)
-                    resetGame()
+                    val intentSample = Intent(this, HarderActivity::class.java)
+                    intentSample.putExtra(ID_PUBLIC, TAG_MAIN_ACTIVITY)
+                    startActivity(intentSample)
                     finish()
-
                 } else {
-                    resetGame()
                     startActivity(Intent(this, HarderActivity::class.java))
                 }
             }
-            R.id.go_to_hardest_gaem -> {
+            R.id.go_to_hardest_game -> {
                 if (gameStarted) {
-                    val intent = Intent(this, HardestActivity::class.java)
-                    intent.putExtra(ID_PUBLIC, TAG_HARDEST)
-                    startActivity(intent)
-                    resetGame()
+                    val intentSample = Intent(this, HardestActivity::class.java)
+                    intentSample.putExtra(ID_PUBLIC, TAG_MAIN_ACTIVITY)
+                    startActivity(intentSample)
                     finish()
-
                 } else {
-                    resetGame()
                     startActivity(Intent(this, HardestActivity::class.java))
                 }
             }

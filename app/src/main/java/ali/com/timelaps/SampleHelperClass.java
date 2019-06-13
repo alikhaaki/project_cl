@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,13 +20,13 @@ public class SampleHelperClass extends AppCompatActivity {
 
 
     public static final String TAG_MAIN_ACTIVITY = "main_activity";
-    public static final String TAG_HARD1 = "hard_1";
+    public static final String TAG_HARD = "hard_1";
     public static final String TAG_HARDER = "harder";
     public static final String TAG_HARDEST = "hardest";
     public static final String ID_PUBLIC = "idpublic";
 
 
-     private Dialog dialog;
+    private Dialog dialog;
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
     private AlertDialog alertDialog;
@@ -37,14 +35,14 @@ public class SampleHelperClass extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent=new Intent();
-        String sssssss=intent.getStringExtra(SampleHelperClass.ID_PUBLIC);
+        Intent intent = new Intent();
+        String sssssss = intent.getStringExtra(SampleHelperClass.ID_PUBLIC);
 
-        switch (sssssss){
+        switch (sssssss) {
             case SampleHelperClass.TAG_MAIN_ACTIVITY:
                 //dddd
                 break;
-            case SampleHelperClass.TAG_HARD1:
+            case SampleHelperClass.TAG_HARD:
                 //dldldl
                 break;
         }
@@ -64,7 +62,7 @@ public class SampleHelperClass extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(this, HardActivity.class));
                 break;
-            case R.id.go_to_hardest_gaem:
+            case R.id.go_to_hardest_game:
                 textYourScore.setText("dlfkjdkl");
                 finish();
                 startActivity(new Intent(this, HardActivity.class));
@@ -82,25 +80,41 @@ public class SampleHelperClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_check);
 
-        Intent intent=new Intent(this, HardActivity.class);
-        intent.putExtra("dlfdl", "dlfjld");
-        startActivity(intent);
 
-        textYourScore.setText(SampleHelperClass.TAG_MAIN_ACTIVITY);
+        final TextView textView = findViewById(R.id.text_dialog_tozih_score);
+        ViewTreeObserver vto = textView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    textView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    textView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                int width = textView.getMeasuredWidth();
+                int height = textView.getMeasuredHeight();
 
-          intent = new Intent();
-        String idddd = intent.getStringExtra(SampleHelperClass.ID_PUBLIC);
+            }
+        });
 
-        switch (idddd) {
-            case SampleHelperClass.TAG_MAIN_ACTIVITY:
-                //dddddd
-                break;
-            case SampleHelperClass.TAG_HARD1:
-                //ddddd
-                break;
+
+        Intent intentSample = new Intent(this, HardActivity.class);
+        intentSample.putExtra(ID_PUBLIC, TAG_MAIN_ACTIVITY);
+        startActivity(intentSample);
+        String value = intentSample.getStringExtra(ID_PUBLIC);
+        if (value.equals(TAG_MAIN_ACTIVITY)) {
+            startActivity(new Intent(this, MainActivity.class));
+
+            finish();
+        } else {
 
         }
 
+        AbsoluteLayout absoluteLayout = new AbsoluteLayout(this);
+
+        int lllllllll = absoluteLayout.getMeasuredHeight();
+        int sssss = absoluteLayout.getMeasuredHeightAndState();
+        int ddddddddd = absoluteLayout.getMeasuredWidth();
 
         startActivity(new Intent(this, MainActivity.class));
         Button button = new Button(this);
