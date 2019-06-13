@@ -12,11 +12,11 @@
 	    android:theme="@style/AppTheme"
 	    tools:ignore="GoogleAppIndexingWarning">
 	    
-        <activity android:name=".Hardest">
+        <activity android:name=".HardestActivity">
         </activity>
-        <activity android:name=".Harder">
+        <activity android:name=".HarderActivity">
         </activity>
-        <activity android:name=".Hard1">
+        <activity android:name=".HardActivity">
         </activity>
         <activity android:name=".MainActivity">
 	      

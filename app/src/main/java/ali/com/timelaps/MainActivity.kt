@@ -1,5 +1,6 @@
 package ali.com.timelaps
 
+import ali.com.timelaps.SampleHelperClass.*
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.annotation.ColorInt
 import android.support.design.widget.Snackbar
@@ -19,6 +21,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.analytics.FirebaseAnalytics
 import java.util.*
 
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var gameScoreTextView: TextView
     internal lateinit var timeLeftTextView: TextView
     private lateinit var countDownTimer: CountDownTimer
+    private var isTimeRunning = false
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
@@ -41,18 +45,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mFireBaseAnalytics: FirebaseAnalytics
     private lateinit var dialog: Dialog
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-
-        resetGame()
-
-    }
-
-
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         treadIntroSetup()
 
@@ -185,41 +182,63 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "برای خروج دکمه بازگشت را دوباره فشار دهید", Toast.LENGTH_SHORT).show()
+
+        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        resetGame()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         super.onOptionsItemSelected(item)
+        val intentt = Intent()
 
         when (item?.itemId) {
 
             R.id.go_to_hard_1_menu -> {
                 if (gameStarted) {
+                    val intent = Intent(this, HardActivity::class.java)
+                    intent.putExtra(ID_PUBLIC, TAG_MAIN_ACTIVITY)
+                    startActivity(intent)
+                    resetGame()
                     finish()
-                    resetGame()
-                    startActivity(Intent(this, Hard1::class.java))
-
                 } else {
-                    resetGame()
-                    startActivity(Intent(this, Hard1::class.java))
+                     resetGame()
+                    startActivity(Intent(this, HardActivity::class.java))
                 }
             }
             R.id.go_to_hard_2_menu -> {
                 if (gameStarted) {
+                    val intent = Intent(this, HarderActivity::class.java)
+                    intent.putExtra(ID_PUBLIC, TAG_HARDER)
+                    startActivity(intent)
                     resetGame()
-                    startActivity(Intent(this, Harder::class.java))
                     finish()
 
                 } else {
                     resetGame()
-                    startActivity(Intent(this, Harder::class.java))
+                    startActivity(Intent(this, HarderActivity::class.java))
                 }
             }
             R.id.go_to_hardest_gaem -> {
                 if (gameStarted) {
+                    val intent = Intent(this, HardestActivity::class.java)
+                    intent.putExtra(ID_PUBLIC, TAG_HARDEST)
+                    startActivity(intent)
                     resetGame()
-                    startActivity(Intent(this, Hardest::class.java))
                     finish()
+
+                } else {
+                    resetGame()
+                    startActivity(Intent(this, HardestActivity::class.java))
                 }
-                resetGame()
-                 startActivity(Intent(this, Hardest::class.java))
             }
         }
 
@@ -338,4 +357,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
 }

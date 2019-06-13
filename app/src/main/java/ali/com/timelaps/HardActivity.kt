@@ -1,10 +1,11 @@
-@file:Suppress("DEPRECATION")
-
 package ali.com.timelaps
 
+import ali.com.timelaps.SampleHelperClass.*
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -14,38 +15,38 @@ import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
-import android.widget.AbsoluteLayout
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import java.util.*
 
-class Harder : AppCompatActivity() {
+class HardActivity : AppCompatActivity() {
 
+    private var toolbar: Toolbar? = null
     private lateinit var tapMeButton: Button
     private lateinit var gameScoreTextView: TextView
     internal lateinit var timeLeftTextView: TextView
     private var score = 0
     private var gameStarted = false
     private lateinit var countDownTimer: CountDownTimer
-    internal val initialCountDown: Long = 20000
+    internal val initialCountDown: Long = 30000
     internal val countDownInterval: Long = 1000
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var switch: SwitchCompat
     private lateinit var textYourScore: TextView
-    internal var timeLeftOnTimer: Long = 20000
+    internal var timeLeftOnTimer: Long = 30000
     private lateinit var dialog: Dialog
-    private lateinit var toolbar: Toolbar
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.menu_hard2, menu)
+        menuInflater.inflate(R.menu.menu_hard1, menu)
         return true
 
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -53,20 +54,20 @@ class Harder : AppCompatActivity() {
 
         when (item?.itemId) {
 
-            R.id.menu_hard2_mainactivity -> {
+            R.id.menu_hard1_mainactivity -> {
                 resetGame()
                 finish()
                 startActivity(Intent(this, MainActivity::class.java))
             }
-            R.id.menu_hard2_hard1 -> {
+            R.id.menu_hard1_harder -> {
                 resetGame()
                 finish()
-                startActivity(Intent(this, Hard1::class.java))
+                startActivity(Intent(this, HarderActivity::class.java))
             }
             R.id.menu_hard1_hardest -> {
                 resetGame()
                 finish()
-                startActivity(Intent(this, Hardest::class.java))
+                startActivity(Intent(this, HardestActivity::class.java))
             }
         }
 
@@ -74,13 +75,43 @@ class Harder : AppCompatActivity() {
     }
 
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent = intent
+
+        val text: String = intent.getStringExtra(ID_PUBLIC) ?: "dlfdlsjfkl"
+        when (text) {
+            TAG_MAIN_ACTIVITY -> {
+                startActivity(Intent(this,MainActivity::class.java))
+                finish()
+            }
+            TAG_HARDER -> {
+                startActivity(Intent(this,HarderActivity::class.java))
+                finish()
+
+            }
+            else -> {
+
+            }
+        }
+        Log.i(" hard1 ", "intent get it : = >>>> $text")
+
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_harder)
-
-        dialog = Dialog(this@Harder)
+        setContentView(R.layout.activity_hard1)
 
 
+        val intent = intent
+        var bundle: Bundle? = intent.extras
+
+        val text: String = intent.getStringExtra(ID_PUBLIC) ?: "dlfdlsjfkl"
+        Log.i(" hard1 ", "intent get it : = >>>> $text")
+
+        dialog = Dialog(this@HardActivity)
 
         toolbar = findViewById(R.id.toolbar)
         tapMeButton = findViewById(R.id.tap_me_button)
@@ -90,7 +121,7 @@ class Harder : AppCompatActivity() {
         switch = findViewById(R.id.switchh)
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "سخت"
+        supportActionBar?.title = "سطح متوسط"
 
         if (savedInstanceState != null) {
             score = savedInstanceState.getInt(SCORE_KEY)
@@ -102,13 +133,9 @@ class Harder : AppCompatActivity() {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.mmm)
         tapMeButton.isSoundEffectsEnabled = false
+
         tapMeButton.setOnClickListener { view ->
 
-            textYourScore.visibility = View.GONE
-
-            if (switch.isChecked) {
-                mediaPlayer.start()
-            }
 
             val random = Random()
             val red = random.nextInt(256 - 70) + 70
@@ -120,20 +147,16 @@ class Harder : AppCompatActivity() {
             val drawable = tapMeButton.background
             DrawableCompat.setTint(drawable, backColor)
 
-            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.shake_animation)
+
+
+            textYourScore.visibility = View.INVISIBLE
+
+            val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_fade_in)
             view.startAnimation(bounceAnimation)
+            if (switch.isChecked) {
+                mediaPlayer.start()
+            }
 
-
-            val displayMetrics = this.resources.displayMetrics
-            val displayHeight = (displayMetrics.heightPixels / displayMetrics.density).toInt()
-            val displayWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
-            val ran = Random()
-            val xPosition = 10 + ran.nextInt((displayHeight - 58) - 10 + 1)
-            val yPosition = 10 + ran.nextInt((displayWidth - 58) - 10 + 1)
-            @Suppress("DEPRECATION") val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
-            position.x = xPosition
-            position.y = yPosition
-            tapMeButton.layoutParams = position
             incrementScore()
         }
 
@@ -169,6 +192,7 @@ class Harder : AppCompatActivity() {
         countDownTimer.cancel()
     }
 
+
     private fun resetGame() {
         score = 0
         gameScoreTextView.text = getString(R.string.your_score, score.toString())
@@ -196,16 +220,15 @@ class Harder : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private fun endGame() {
+//        Toast.makeText(this, getString(R.string.game_over_message, score.toString()), Toast.LENGTH_SHORT).show()
+
 //        val parent = findViewById<View>(android.R.id.content)
+//
 //        Snackbar.make(parent, getString(R.string.game_over_message, score.toString()), Snackbar.LENGTH_LONG).setAction(
-//            "باشه  "
+//            "باشه !"
 //        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
 //            .show()
 
-
-//        val alert = ViewDialog()
-//        alert.showDialog(this@Harder)
-//
 
         customDialogMethod()
 
@@ -229,6 +252,37 @@ class Harder : AppCompatActivity() {
         return this
     }
 
+
+    companion object {
+        private const val SCORE_KEY = "SCORE_KEY"
+        private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
+    }
+
+
+    inner class ViewDialog {
+
+        fun showDialog(activity: Activity) {
+            val dialog = Dialog(activity)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.newcustom_layout_dialog)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            val textViewDialog: TextView = dialog.findViewById(R.id.text_dialog_tozih_score)
+            textViewDialog.text = getString(R.string.string_tozih_dialog, score.toString())
+
+            val frameYes: FrameLayout = dialog.findViewById(R.id.frmOk)
+
+//            val mDialogOk = activity.frmOk
+            frameYes.setOnClickListener {
+                dialog.cancel()
+            }
+
+            dialog.show()
+        }
+    }
+
+
     override fun onPause() {
         dialog.dismiss()
         resetGame()
@@ -249,8 +303,7 @@ class Harder : AppCompatActivity() {
 
     private fun customDialogMethod() {
 
-
-        dialog = Dialog(this@Harder)
+        dialog = Dialog(this@HardActivity)
         dialog.setContentView(R.layout.newcustom_layout_dialog)
         val params = WindowManager.LayoutParams()
         params.copyFrom(dialog.window!!.attributes)
@@ -268,17 +321,11 @@ class Harder : AppCompatActivity() {
         frameLayout.setOnClickListener {
             dialog.dismiss()
         }
-        if (!this@Harder.isFinishing) {
+        if (!this@HardActivity.isFinishing) {
             dialog.show()
 
         }
 
-
-    }
-
-    companion object {
-        private const val SCORE_KEY = "SCORE_KEY"
-        private const val TIME_LEFT_KEY = "TIME_LEFT_KEY"
     }
 
     public override fun onResume() {

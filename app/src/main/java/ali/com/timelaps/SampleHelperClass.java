@@ -18,13 +18,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 
-public class Sample extends AppCompatActivity {
+public class SampleHelperClass extends AppCompatActivity {
 
 
-    private Activity activity;
-    private Dialog dialog;
+    public static final String TAG_MAIN_ACTIVITY = "main_activity";
+    public static final String TAG_HARD1 = "hard_1";
+    public static final String TAG_HARDER = "harder";
+    public static final String TAG_HARDEST = "hardest";
+    public static final String ID_PUBLIC = "idpublic";
+
+
+     private Dialog dialog;
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-    Button button = new Button(this);
 
     private AlertDialog alertDialog;
     private TextView textYourScore;
@@ -32,6 +37,17 @@ public class Sample extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent=new Intent();
+        String sssssss=intent.getStringExtra(SampleHelperClass.ID_PUBLIC);
+
+        switch (sssssss){
+            case SampleHelperClass.TAG_MAIN_ACTIVITY:
+                //dddd
+                break;
+            case SampleHelperClass.TAG_HARD1:
+                //dldldl
+                break;
+        }
     }
 
     @Override
@@ -41,17 +57,17 @@ public class Sample extends AppCompatActivity {
             case R.id.go_to_hard_1_menu:
                 textYourScore.setText("dlfkjdkl");
                 finish();
-                startActivity(new Intent(this,Hard1.class));
+                startActivity(new Intent(this, HardActivity.class));
                 break;
             case R.id.go_to_hard_2_menu:
                 textYourScore.setText("dlfkjdkl");
                 finish();
-                startActivity(new Intent(this,Hard1.class));
+                startActivity(new Intent(this, HardActivity.class));
                 break;
             case R.id.go_to_hardest_gaem:
                 textYourScore.setText("dlfkjdkl");
                 finish();
-                startActivity(new Intent(this,Hard1.class));
+                startActivity(new Intent(this, HardActivity.class));
                 break;
 
 
@@ -60,17 +76,36 @@ public class Sample extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_check);
 
+        Intent intent=new Intent(this, HardActivity.class);
+        intent.putExtra("dlfdl", "dlfjld");
+        startActivity(intent);
+
+        textYourScore.setText(SampleHelperClass.TAG_MAIN_ACTIVITY);
+
+          intent = new Intent();
+        String idddd = intent.getStringExtra(SampleHelperClass.ID_PUBLIC);
+
+        switch (idddd) {
+            case SampleHelperClass.TAG_MAIN_ACTIVITY:
+                //dddddd
+                break;
+            case SampleHelperClass.TAG_HARD1:
+                //ddddd
+                break;
+
+        }
 
 
         startActivity(new Intent(this, MainActivity.class));
         Button button = new Button(this);
 
-        dialog = new Dialog(Sample.this);
+        dialog = new Dialog(SampleHelperClass.this);
         dialog.setContentView(R.layout.newcustom_layout_dialog);
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         params.copyFrom(dialog.getWindow().getAttributes());
@@ -80,7 +115,7 @@ public class Sample extends AppCompatActivity {
         dialog.getWindow().setAttributes(params);
         dialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimary);
         FrameLayout frameLayout = dialog.findViewById(R.id.frmOk);
-        if (!Sample.this.isFinishing()) {
+        if (!SampleHelperClass.this.isFinishing()) {
             //show dialog
         }
         frameLayout.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +159,7 @@ public class Sample extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         ViewDialog alert = new ViewDialog();
-        alert.showDialog(Sample.this);
+        alert.showDialog(SampleHelperClass.this);
         dialog.dismiss();
     }
 
