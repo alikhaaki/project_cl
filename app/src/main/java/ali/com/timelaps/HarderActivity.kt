@@ -2,13 +2,12 @@
 
 package ali.com.timelaps
 
-import ali.com.timelaps.SampleHelperClass.ID_PUBLIC
-import ali.com.timelaps.SampleHelperClass.TAG_MAIN_ACTIVITY
-import android.app.Dialog
+ import ali.com.timelaps.MainActivity.Companion.ID_PUBLIC
+ import ali.com.timelaps.MainActivity.Companion.TAG_MAIN_ACTIVITY
+ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.annotation.ColorInt
@@ -50,12 +49,10 @@ class HarderActivity : AppCompatActivity() {
 
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         super.onOptionsItemSelected(item)
 
         when (item?.itemId) {
-
             R.id.menu_hard2_mainactivity -> {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
@@ -73,7 +70,6 @@ class HarderActivity : AppCompatActivity() {
         return true
     }
 
-
     override fun onBackPressed() {
         super.onBackPressed()
         val inttttExtra = intent
@@ -84,48 +80,17 @@ class HarderActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var absoluteLayout: AbsoluteLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_harder)
 
         dialog = Dialog(this@HarderActivity)
-
-
-        absoluteLayout = findViewById(R.id.absolute_layout)
-
         toolbar = findViewById(R.id.toolbar)
         tapMeButton = findViewById(R.id.tap_me_button)
         gameScoreTextView = findViewById(R.id.game_score_text_view)
         timeLeftTextView = findViewById(R.id.time_left_text_view)
         textYourScore = findViewById(R.id.text_score_tozih)
         switch = findViewById(R.id.switchh)
-
-        val lllllllll = absoluteLayout.measuredHeight
-        val bbbbbbbb = absoluteLayout.measuredWidth
-        val sssss = absoluteLayout.measuredHeightAndState
-
-        Log.i("harderrrrrrrrr", "mHe  =  $lllllllll  mWi = $bbbbbbbb  mesHWW = $ $sssss ... ")
-
-
-        val vto = absoluteLayout.getViewTreeObserver()
-        vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    absoluteLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this)
-                } else {
-                    absoluteLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
-                }
-                val width = absoluteLayout.getMeasuredWidth()
-                val height = absoluteLayout.getMeasuredHeight()
-
-                Log.i("harderrrrrrrrr", "mHe  =  $width  mWi = $height  ")
-
-            }
-        })
-
-
-
 
 
         setSupportActionBar(toolbar)
@@ -150,26 +115,26 @@ class HarderActivity : AppCompatActivity() {
             }
 
             val random = Random()
-            val red = random.nextInt(256 - 70) + 70
-            val blue = random.nextInt(256 - 70) + 70
-            val yellow = random.nextInt(256 - 70) + 70
+            val red = random.nextInt(256 - 80) + 70
+            val blue = random.nextInt(256 - 80) + 70
+            val yellow = random.nextInt(256 - 80) + 70
             val backColor = Color.argb(255, red, blue, yellow)
-
-
             val drawable = tapMeButton.background
             DrawableCompat.setTint(drawable, backColor)
-
             val bounceAnimation = AnimationUtils.loadAnimation(this, R.anim.shake_animation)
             view.startAnimation(bounceAnimation)
-
 
             val displayMetrics = this.resources.displayMetrics
             val displayHeight = (displayMetrics.heightPixels / displayMetrics.density).toInt()
             val displayWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
+            Log.i("harderr", "dish = $displayHeight disw = $displayWidth")
             val ran = Random()
-            val xPosition = 10 + ran.nextInt((displayHeight - 58) - 10 + 1)
-            val yPosition = 10 + ran.nextInt((displayWidth - 58) - 10 + 1)
-            @Suppress("DEPRECATION") val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
+            val xPosition = ran.nextInt((560) - 10 + 1)
+            val yPosition = ran.nextInt((440) - 10 + 1)
+
+            @Suppress("DEPRECATION")
+            val position = tapMeButton.layoutParams as AbsoluteLayout.LayoutParams
+
             position.x = xPosition
             position.y = yPosition
             tapMeButton.layoutParams = position
@@ -240,14 +205,9 @@ class HarderActivity : AppCompatActivity() {
 //            "باشه  "
 //        ) { }.setActionTextColor(resources.getColor(R.color.black)).withColor(resources.getColor(R.color.colorPrimary))
 //            .show()
-
-
 //        val alert = ViewDialog()
 //        alert.showDialog(this@HarderActivity)
-//
-
         customDialogMethod()
-
         textYourScore.visibility = View.VISIBLE
         textYourScore.text = getString(R.string.your_score_tozih, score.toString())
         resetGame()
@@ -260,7 +220,6 @@ class HarderActivity : AppCompatActivity() {
         score += 1
         val newScore = getString(R.string.your_score, score.toString())
         gameScoreTextView.text = newScore
-
     }
 
     private fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
@@ -287,8 +246,6 @@ class HarderActivity : AppCompatActivity() {
     }
 
     private fun customDialogMethod() {
-
-
         dialog = Dialog(this@HarderActivity)
         dialog.setContentView(R.layout.newcustom_layout_dialog)
         val params = WindowManager.LayoutParams()
@@ -300,19 +257,13 @@ class HarderActivity : AppCompatActivity() {
         dialog.window!!.setBackgroundDrawableResource(R.color.colorPrimary)
         val frameLayout = dialog.findViewById<FrameLayout>(R.id.frmOk)
         val textViewDialog = dialog.findViewById<TextView>(R.id.text_dialog_tozih_score)
-
         textViewDialog.text = getString(R.string.string_tozih_dialog, score.toString())
-
-
         frameLayout.setOnClickListener {
             dialog.dismiss()
         }
         if (!this@HarderActivity.isFinishing) {
             dialog.show()
-
         }
-
-
     }
 
     companion object {
@@ -325,5 +276,4 @@ class HarderActivity : AppCompatActivity() {
         dialog.dismiss()
         resetGame()
     }
-
 }

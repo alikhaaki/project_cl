@@ -11,9 +11,6 @@ import ali.com.timelaps.R;
 
 
 public class FragmentThree extends Fragment {
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
